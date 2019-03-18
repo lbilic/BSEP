@@ -10,23 +10,33 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtService } from './services/auth/jwt.service';
+import { SoftwareCertificatesComponent, ChecklistDatabase } from './components/software-certificates/software-certificates.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule, MatTreeModule, MatFormFieldModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    SoftwareCertificatesComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTreeModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [
-    JwtService
+    JwtService, ChecklistDatabase
   ],
   bootstrap: [AppComponent]
 })
