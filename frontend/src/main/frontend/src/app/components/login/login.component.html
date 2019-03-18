@@ -1,0 +1,62 @@
+<!--toaster-container></toaster-container-->
+<div class="container bg-col">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel-login">
+      <div class="panel">             
+        <h3 class="panel-title">Log in</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8">
+            <!-- start of Username -->
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fa fa-user icon"></i>
+                <input
+                  formControlName="username"
+                  id="username"
+                  placeholder="username..."
+                  type="text"
+                  class="form-control input">
+              </div>
+            </div>
+            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+              <div id="usernameRequiredError" *ngIf="username.errors.required; else containSpace">
+                The username is required!
+              </div>
+            <ng-template #containSpace>
+              <ng-container *ngIf="username.errors.cannotContainSpace">
+                <div id="usernameContainSpaceError">
+                  The username can't contain space!
+                </div>
+              </ng-container>
+            </ng-template>
+            </div>
+            <!-- end of Username -->
+
+            <!-- start of Password -->
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fa fa-lock icon"></i>
+                <input
+                  formControlName="password"
+                  id="password"
+                  placeholder="password..."
+                  type="password"
+                  class="form-control input">
+              </div>
+            </div>
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+              <div id="passwordRequiredError" *ngIf="password.errors.required">
+                The password is required!
+              </div>
+            </div>
+            
+            <!-- end of Password -->
+          <button class="btn" type="submit">Login</button>
+        </form>
+
+        <div class="forgot-pw">
+          <a class="forgot-pw" href="google.com">Forgot password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<nav class="navbar-expand-lg navbar-darkblue">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+
+      <!-- start of navbar left-->
+      <ul class="nav navbar-nav navbar-left">
+
+        <!-- start of home option -->
+        <li title="Home" class="navbar-home">
+          <a routerLinkActive="active" routerLink="/">
+            <span class="fa fa-home fa-lg"></span>
+          </a>
+        </li>
+        <!-- end of home option -->
+      </ul>
+      <!-- end of navbar left -->
+
+
+      <!-- start of navbar right -->
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!jwtService.tokenExist()">
+          <a routerLink="/login">Login</a>
+        </li>
+        <li class="navbar-personal-dropdown" dropdown *ngIf="jwtService.tokenExist()">
+          <a href dropdownToggle (click)="false">
+            {{ jwtService.getUsernameFromToken() }}
+            <span class="fa fa-caret-down"></span>
+          </a>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" id="dropdownMenuPersonal">
+            <li>
+              <a routerLink="/profile">
+                <span class="fa fa-user"></span> Profile
+              </a>
+            </li>
+            <li *ngIf="jwtService.hasRole('ADMIN')">
+                <a routerLink="/admin-dashboard">
+                  <span class="fa fa-bars"></span> Dashboard
+                </a>
+              </li>
+            <li *ngIf="jwtService.tokenExist()">
+              <a (click)="logout()">
+                <span class="fa fa-sign-out"></span> Sign out
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- end of navbar right -->
+    </div>
+  </div>
+</nav>

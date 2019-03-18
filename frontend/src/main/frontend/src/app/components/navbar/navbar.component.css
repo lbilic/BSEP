@@ -1,0 +1,56 @@
+.navbar-darkblue {
+    background-color: #2e2e30;
+    border-width: 0;
+    top: 0;
+  }
+  
+  .navbar-blue {
+    margin-bottom: 0!important;
+    background-color: rgb(66, 139, 202);
+    border-width: 5;
+    top: 0;
+    margin-top:7px;
+    margin-right:5px;
+  }
+  
+  .navbar-left, .navbar-right {
+    margin-top: 5px;
+  }
+  
+  .navbar {
+    margin-bottom: 0!important;
+    border-radius: 0px;
+  }
+  
+  .navbar-home {
+    margin-top: -0.5px;
+  }
+  
+  .navbar-personal-dropdown {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  
+  a > span.fa {
+    color: rgb(66, 139, 202);
+  }
+  
+  a > i.fas {
+    color: rgb(66, 139, 202);
+  }
+  
+  a {
+    color: white!important;
+    cursor: hand;
+  }
+  
+  .dropdown-menu {
+    background-color: #3c3c3c;
+  }
+  
+  .nav > li > a:hover, .nav > li > a:active, .nav > li > a:focus,
+  .dropdown-menu > li > a:hover, .dropdown-menu > li > a:active, .dropdown-menu > li > a:focus {
+    background-color: rgb(100, 100, 100);
+    border-radius: 6px;
+  }
+  
