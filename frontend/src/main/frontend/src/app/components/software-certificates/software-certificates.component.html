@@ -1,0 +1,46 @@
+<div style="display: flex; padding: 20px; min-height: 50vh; margin-top: 25px;">
+  <!-- LEFT TREE -->
+  <mat-tree [dataSource]="dataSource2" [treeControl]="treeControl2" style="width:50%">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <mat-checkbox class="checklist-leaf-node"
+                    [checked]="checklistSelection2.isSelected(node)"
+                    (change)="todoLeafItemSelectionToggle2(node)">{{node.item}}</mat-checkbox>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild2" matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'toggle ' + node.filename">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl2.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+        <span style="font-weight: 700;"><span style="display:none">&nbsp;</span>{{node.item}}</span>
+      </button>
+    </mat-tree-node>
+  </mat-tree>
+
+  <!-- RIGHT TREE -->
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="width:50%">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <mat-checkbox class="checklist-leaf-node"
+                    [checked]="checklistSelection.isSelected(node)"
+                    (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'toggle ' + node.filename">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <mat-checkbox [checked]="descendantsAllSelected(node)"
+                    [indeterminate]="descendantsPartiallySelected(node)"
+                    (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+    </mat-tree-node>
+  </mat-tree>
+</div>
+<div style="display: table; text-align: center; width: 100%;">
+  <button mat-raised-button color="primary">Update</button>
+</div>
