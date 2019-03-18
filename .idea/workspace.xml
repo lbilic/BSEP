@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="08677da4-8fda-4c5b-b1b0-311ea2ef5cc7" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,6 +25,39 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
               <caret line="10" column="37" lean-forward="true" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Software.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/Software.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="City.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/City.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="31" column="33" lean-forward="true" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Office.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/Office.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+              <folding>
+                <element signature="e#694#695#0" expanded="true" />
+                <element signature="e#710#711#0" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#760#761#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -87,6 +114,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/kits/project/model/Account.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/kits/project/services/implementations/AccountService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/kits/project/services/interfaces/AccountService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kits/project/model/Software.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kits/project/model/City.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kits/project/model/Office.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
       </list>
     </option>
@@ -183,6 +213,17 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="kits" type="462c0819:PsiDirectoryNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BESP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BSEP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="kits" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BESP" type="b2602c69:ProjectViewProjectNode" />
@@ -314,12 +355,12 @@
       <option name="presentableId" value="Default" />
       <updated>1552827103352</updated>
       <workItem from="1552827133897" duration="3024000" />
-      <workItem from="1552914783443" duration="6813000" />
+      <workItem from="1552914783443" duration="8584000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9837000" />
+    <option name="totallyTimeSpent" value="11608000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -367,30 +408,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../KTS/KTS_Projekat/src/main/java/com/kits/project/model/Authority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="37" column="5" lean-forward="true" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/Authority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="46" lean-forward="true" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../KTS/KTS_Projekat/src/main/java/com/kits/project/model/AccountAuthority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="7" lean-forward="true" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/AccountAuthority.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -770,6 +787,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/data.sql">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/Software.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/City.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="31" column="33" lean-forward="true" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kits/project/model/Office.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <folding>
+            <element signature="e#694#695#0" expanded="true" />
+            <element signature="e#710#711#0" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#760#761#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">

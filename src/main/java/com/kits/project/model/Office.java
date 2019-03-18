@@ -1,13 +1,10 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Office {
@@ -26,7 +23,7 @@ public class Office {
     @Column
     private Boolean hasCert;
 
-    @Column
+    @OneToOne(targetEntity = City.class)
     private City city;
 
     @Column
