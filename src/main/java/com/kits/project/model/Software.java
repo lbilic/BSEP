@@ -26,8 +26,7 @@ public class Software {
 
     @Column
     private Boolean hasCert;
-    
-    @Column
+
     @ManyToOne
     private Office office;
 
