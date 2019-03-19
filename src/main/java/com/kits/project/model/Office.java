@@ -29,7 +29,7 @@ public class Office {
     private City city;
 
     @Column
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 	@JsonManagedReference
     private List<Software> softwares;
 
