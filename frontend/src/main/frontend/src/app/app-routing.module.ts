@@ -6,12 +6,14 @@ import { SoftwareCertificatesComponent } from './components/software-certificate
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AnonymousGuard } from './shared/guards/anonymous.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
+import {RevokeCertificateComponent} from "./components/revoke-certificate/revoke-certificate.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard]},
-  { path: 'software-certificates', component: SoftwareCertificatesComponent, canActivate: [AdminGuard]}
+  { path: 'software-certificates', component: SoftwareCertificatesComponent, canActivate: [AdminGuard]},
+  { path: 'revoke-certificate', component: RevokeCertificateComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

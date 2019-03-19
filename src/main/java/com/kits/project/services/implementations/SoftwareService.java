@@ -14,7 +14,7 @@ public class SoftwareService implements com.kits.project.services.interfaces.Sof
 
     @Override
     public List<Software> getConnectedSoftware(String nameId) {
-        Software software = this.softwareRepository.getSoftwareByNameId(nameId);
+        Software software = this.softwareRepository.findByNameId(nameId);
         return software.getConnectedSoftware();
     }
 }

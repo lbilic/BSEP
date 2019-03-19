@@ -40,6 +40,14 @@ public class CertificateController {
     }
 
 	@RequestMapping(
+			value = "/{node_id}",
+			method = RequestMethod.DELETE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity revoke(@PathVariable String node_id) {
+		return new ResponseEntity<String>("LIMUN",HttpStatus.OK);
+	}
+
+	@RequestMapping(
 			value = "/all-data",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE

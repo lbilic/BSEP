@@ -1,7 +1,8 @@
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {Component, OnInit} from '@angular/core';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { CertificatesService } from '../../services/certificates.service';
+import { Component, OnInit } from '@angular/core';
+import {CertificatesService} from "../../services/certificates.service";
+import {NestedTreeControl} from "@angular/cdk/tree";
+import {MatTreeNestedDataSource} from "@angular/material";
+
 
 interface ThreeNode {
   nameId: string;
@@ -12,12 +13,12 @@ interface ThreeNode {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  providers: [CertificatesService]
+  selector: 'app-revoke-certificate',
+  templateUrl: './revoke-certificate.component.html',
+  styleUrls: ['./revoke-certificate.component.css']
 })
-export class HomeComponent implements OnInit{
+export class RevokeCertificateComponent implements OnInit {
+
   treeControl = new NestedTreeControl<ThreeNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<ThreeNode>();
 
@@ -33,9 +34,9 @@ export class HomeComponent implements OnInit{
 
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
-  addCertificate(id) {
+  deleteCertificate(id) {
     console.log(id);
-    this.certificatesService.addCertificate(id);
+    this.certificatesService.deleteCertificate(id);
   }
 
   getAllData(): void {
@@ -55,7 +56,6 @@ export class HomeComponent implements OnInit{
           })
         });
       })
-      console.log(responseData);
       this.dataSource.data = responseData;
     });
   }
