@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {CertificatesService} from "../../services/certificates.service";
 import {NestedTreeControl} from "@angular/cdk/tree";
-import {MatTreeNestedDataSource} from "@angular/material";
-
+import {MatDialog, MatDialogConfig, MatTreeNestedDataSource} from "@angular/material";
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {ShowCertificateComponent} from "./show-certificate/show-certificate.component";
 
 interface ThreeNode {
   nameId: string;
@@ -23,7 +24,8 @@ export class RevokeCertificateComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<ThreeNode>();
 
   constructor(
-    private certificatesService: CertificatesService
+    private certificatesService: CertificatesService,
+    private dialog: MatDialog
   ) {
     this.dataSource.data = [];
   }
@@ -37,6 +39,13 @@ export class RevokeCertificateComponent implements OnInit {
   deleteCertificate(id) {
     console.log(id);
     this.certificatesService.deleteCertificate(id);
+  }
+
+  showCertificate(id) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = id;
+    this.dialog.open(ShowCertificateComponent, dialogConfig);
   }
 
   getAllData(): void {

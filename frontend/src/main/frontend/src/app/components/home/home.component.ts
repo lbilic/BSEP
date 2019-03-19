@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit{
     this.certificatesService.getAllData().subscribe((res : any[]) => {
       responseData = res;
       responseData.forEach((city) => {
-        city.canAddCertificate = false
+        city.canAddCertificate = true
         city.children = city.offices;
         delete city.offices;
         city.children.forEach((office) => {
