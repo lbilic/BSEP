@@ -26,10 +26,11 @@ public class CertificateController {
 	CertificateService certificateService;
 	
     @RequestMapping(
+    		value = "/{node_id}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity login(@PathVariable String node_id) {
-    	return new ResponseEntity<String>(certificateService.generateCert(),HttpStatus.OK);
+    	return new ResponseEntity<String>(certificateService.generateCert(node_id),HttpStatus.OK);
     }
     
 }
