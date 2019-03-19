@@ -14,12 +14,12 @@ INSERT INTO city_offices (city_id,offices_id) values (1,1);
 INSERT INTO city_offices (city_id,offices_id) values (1,2);
 INSERT INTO city_offices (city_id,offices_id) values (1,3);
 
-INSERT INTO office (id,has_cert,name_id,city_id) values (4,false,'Office1',2);
-INSERT INTO office (id,has_cert,name_id,city_id) values (5,false,'Office2',2);
+INSERT INTO office (id,has_cert,name_id,city_id) values (4,false,'Office4',2);
+INSERT INTO office (id,has_cert,name_id,city_id) values (5,false,'Office5',2);
 INSERT INTO city_offices (city_id,offices_id) values (2,4);
 INSERT INTO city_offices (city_id,offices_id) values (2,5);
 
-INSERT INTO office (id,has_cert,name_id,city_id) values (6,false,'Office1',3);
+INSERT INTO office (id,has_cert,name_id,city_id) values (6,false,'Office6',3);
 INSERT INTO city_offices (city_id,offices_id) values (3,6);
 
 INSERT INTO software (id,has_cert,name_id,office_id) values (1,false,'Software1',1);
