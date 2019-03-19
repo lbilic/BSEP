@@ -48,6 +48,36 @@ public class CertificateService {
 	SoftwareRepository softwareRep;
 
 	public String generateCert(String nameId) {
+		City city = cityRep.findByNameId(nameId);
+		Office office = officeRep.findByNameId(nameId);
+		Software software = softwareRep.findByNameId(nameId);
+		
+		String parentAlias = "";
+		if(city != null) {
+			parentAlias = "MyTravelROOT";
+			if(city.getHasCert()) {
+				return "Error! Already has certificate";
+			}
+		}else if(office != null) {
+			parentAlias = office.getCity().getNameId();
+			if(office.getHasCert()) {
+				return "Error! Already has certificate";
+			}
+			if(!office.getCity().getHasCert()) {
+				return "Error ! Issuer has no certificate";
+			}
+		}else if(software != null) {
+			parentAlias = software.getOffice().getNameId();
+			if(software.getHasCert()) {
+				return "Error! Already has certificate";
+			}
+			if(!software.getOffice().getHasCert()) {
+				return "Error ! Issuer has no certificate";
+			}
+		}else {
+			return "No given ID in database";
+		}
+
 		// TREBA PROVERITI STA STAVITI OVDE ZA JKS / SUN!
 		KeyStore store;
 		try {
@@ -61,23 +91,9 @@ public class CertificateService {
 		try {
 			store.load(new FileInputStream("my_cert_data"), "random_password".toCharArray());
 		} catch (NoSuchAlgorithmException | CertificateException | IOException e) {
-			e.printStackTrace();
+			return "System error, no certificate file.";
 		}
 		
-		City city = cityRep.findByNameId(nameId);
-		Office office = officeRep.findByNameId(nameId);
-		Software software = softwareRep.findByNameId(nameId);
-		
-		String parentAlias = "";
-		if(city != null) {
-			parentAlias = "MyTravelROOT";
-		}else if(office != null) {
-			parentAlias = office.getCity().getNameId();
-		}else if(software != null) {
-			parentAlias = software.getOffice().getNameId();
-		}else {
-			return "Greska1";
-		}
 		
 		KeyPair keyPair;
         try {
@@ -88,11 +104,11 @@ public class CertificateService {
         } catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 			keyPair = null;
-			return "Greska2";
+			return "Keys generated badly";
 		} catch (NoSuchProviderException e) {
 			e.printStackTrace();
 			keyPair = null;
-			return "Greska3";
+			return "Keys generated badly";
 		}
         
         PrivateKey pk = null;
@@ -104,7 +120,11 @@ public class CertificateService {
 			}
 		} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			return "Greska4";
+			return "No certificate for issuer";
+		}
+		
+		if(pk == null) {
+			return "No certificate for issuer";
 		}
 
 
@@ -144,6 +164,19 @@ public class CertificateService {
 			e.printStackTrace();
 		}
 
+		if(city != null) {
+			city.setHasCert(true);
+			cityRep.save(city);
+		}else if(office != null) {
+			office.setHasCert(true);
+			officeRep.save(office);
+		}else if(software != null) {
+			software.setHasCert(true);
+			softwareRep.save(software);
+		}else {
+			return "No given ID in database";
+		}
+
 		return "Success";
 	}
 
@@ -151,5 +184,9 @@ public class CertificateService {
 
 		System.out.println(cityRep.findAll());
 		return cityRep.findAll();
+	}
+	
+	public String revokeCert(String nameId) {
+		return "";
 	}
 }
