@@ -1,53 +1,44 @@
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <ul class="navbar-nav mr-auto">
+      <li *ngIf="jwtService.tokenExist()" title="Home" class="nav-item active">
+        <a class="nav-link" routerLinkActive="active" routerLink="/">
+          <span class="fa fa-home fa-lg"></span>
+        </a>
+      </li>
 
-<nav class="navbar-expand-lg navbar-darkblue">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse">
+      <li *ngIf="jwtService.tokenExist()" title="Softwares" class="nav-item ">
+        <a class="nav-link" routerLinkActive="active" routerLink="/software-certificates">
+          Software certificates
+        </a>
+      </li>
 
-      <!-- start of navbar left-->
-      <ul class="nav navbar-nav navbar-left">
-
-        <!-- start of home option -->
-        <li title="Home" class="navbar-home">
-          <a routerLinkActive="active" routerLink="/">
-            <span class="fa fa-home fa-lg"></span>
-          </a>
-        </li>
-        <!-- end of home option -->
-      </ul>
-      <!-- end of navbar left -->
-
-
-      <!-- start of navbar right -->
-      <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!jwtService.tokenExist()">
-          <a routerLink="/login">Login</a>
-        </li>
-        <li class="navbar-personal-dropdown" dropdown *ngIf="jwtService.tokenExist()">
-          <a href dropdownToggle (click)="false">
-            {{ jwtService.getUsernameFromToken() }}
-            <span class="fa fa-caret-down"></span>
-          </a>
-          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" id="dropdownMenuPersonal">
-            <li>
-              <a routerLink="/profile">
-                <span class="fa fa-user"></span> Profile
-              </a>
-            </li>
-            <li *ngIf="jwtService.hasRole('ADMIN')">
-                <a routerLink="/admin-dashboard">
-                  <span class="fa fa-bars"></span> Dashboard
-                </a>
-              </li>
-            <li *ngIf="jwtService.tokenExist()">
-              <a (click)="logout()">
-                <span class="fa fa-sign-out"></span> Sign out
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <!-- end of navbar right -->
-    </div>
+      <li *ngIf="jwtService.tokenExist()" title="Revoke certificate" class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/revoke-certificate">
+          Revoke certificate
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      <li *ngIf="!jwtService.tokenExist()">
+        <a routerLink="/login">Login</a>
+      </li>
+      <li class="navbar-personal-dropdown" dropdown *ngIf="jwtService.tokenExist()">
+        <a href dropdownToggle (click)="false">
+          {{ jwtService.getUsernameFromToken() }}
+          <span class="fa fa-caret-down"></span>
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" id="dropdownMenuPersonal">
+          <li *ngIf="jwtService.tokenExist()">
+            <a (click)="logout()">
+              <span class="fa fa-sign-out"></span> Sign out
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>

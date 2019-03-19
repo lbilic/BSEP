@@ -17,6 +17,7 @@ import {MatButtonModule, MatCheckboxModule, MatTreeModule, MatFormFieldModule, M
 import { AnonymousGuard } from './shared/guards/anonymous.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
+import { RevokeCertificateComponent } from './components/revoke-certificate/revoke-certificate.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminGuard } from './shared/guards/admin.guard';
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    SoftwareCertificatesComponent
+    SoftwareCertificatesComponent,
+    RevokeCertificateComponent
   ],
   imports: [
     BrowserModule,

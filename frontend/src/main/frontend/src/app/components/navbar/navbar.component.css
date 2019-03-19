@@ -2,6 +2,7 @@
     background-color: #2e2e30;
     border-width: 0;
     top: 0;
+    height: 30px !important;
   }
   
   .navbar-blue {
@@ -24,6 +25,7 @@
   
   .navbar-home {
     margin-top: -0.5px;
+    margin-left: 10px;
   }
   
   .navbar-personal-dropdown {
@@ -53,4 +55,3 @@
     background-color: rgb(100, 100, 100);
     border-radius: 6px;
   }
-  

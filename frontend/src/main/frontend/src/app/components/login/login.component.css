@@ -1,8 +1,9 @@
 .container {
-    position:relative;
-    z-index:2;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  z-index:2;
+  width: 100%;
+  height: 100%;
 }
 
 .panel-login {
