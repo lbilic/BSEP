@@ -18,12 +18,11 @@ export class ShowCertificateComponent implements OnInit {
   ngOnInit() {
     console.log(this.data);
     this.certificate ={};
-    this.certificate.issuedBy= "LEMUR";
-    // this.certificate = this.certificatesService.getCertificate(this.data)
-    //   .subscribe((res : any[]) => {
-    //     this.certificate = res;
-    //     console.log(res);
-    //   });
+    this.certificate = this.certificatesService.getCertificate(this.data)
+      .subscribe((res : any[]) => {
+        this.certificate = res;
+        console.log(res);
+      });
   }
 
 }

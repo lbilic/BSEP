@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit{
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
   addCertificate(id) {
-    console.log(id);
     this.certificatesService.addCertificate(id);
   }
 
@@ -55,7 +54,6 @@ export class HomeComponent implements OnInit{
           })
         });
       })
-      console.log(responseData);
       this.dataSource.data = responseData;
     });
   }

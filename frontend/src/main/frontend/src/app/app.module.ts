@@ -11,7 +11,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtService } from './services/auth/jwt.service';
 import { CertificatesService } from './services/certificates.service';
-import { SoftwareCertificatesComponent, ChecklistDatabase } from './components/software-certificates/software-certificates.component';
+import {
+  SoftwareCertificatesComponent
+} from './components/software-certificates/software-certificates.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -27,6 +29,7 @@ import { AdminGuard } from './shared/guards/admin.guard';
 import { RevokeCertificateComponent } from './components/revoke-certificate/revoke-certificate.component';
 import {JwtInterceptor} from "./shared/interceptors/JwtInterceptor";
 import { ShowCertificateComponent } from './components/revoke-certificate/show-certificate/show-certificate.component';
+import { EditCommunicationComponent } from './components/software-certificates/edit-communication/edit-communication.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +37,10 @@ import { ShowCertificateComponent } from './components/revoke-certificate/show-c
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    SoftwareCertificatesComponent,
     RevokeCertificateComponent,
-    ShowCertificateComponent
+    ShowCertificateComponent,
+    SoftwareCertificatesComponent,
+    EditCommunicationComponent
   ],
   imports: [
     BrowserModule,
@@ -58,9 +62,9 @@ import { ShowCertificateComponent } from './components/revoke-certificate/show-c
       useClass: JwtInterceptor,
       multi: true
     },
-    JwtService, ChecklistDatabase, CertificatesService, AnonymousGuard, AuthGuard, AdminGuard
+    JwtService, CertificatesService, AnonymousGuard, AuthGuard, AdminGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ShowCertificateComponent]
+  entryComponents: [ShowCertificateComponent, EditCommunicationComponent]
 })
 export class AppModule { }
