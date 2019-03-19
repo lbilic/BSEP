@@ -1,14 +1,18 @@
 package com.kits.project.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class KeyStoreHandler {
@@ -36,7 +40,8 @@ public class KeyStoreHandler {
 			try {
 				if(store.isKeyEntry(alias)) {
 					//store.getCertificate(alias);
-					store.deleteEntry(alias);	
+					storeToArchive(alias,(X509Certificate) store.getCertificate(alias));
+					store.deleteEntry(alias);
 					System.out.println(alias + " -- DELETED FROM DATA");
 				}
 			} catch (KeyStoreException e) {
@@ -66,5 +71,19 @@ public class KeyStoreHandler {
 		}
 		return null;
 	}
-
+	
+	public void storeToArchive(String alias,X509Certificate cert){
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("_yyyy_MM_dd_HH_mm_ss");  
+	    LocalDateTime now = LocalDateTime.now();
+		String fileName = alias + dtf.format(now);
+		try {
+			PrintWriter writer = new PrintWriter("archive" + File.separator + fileName);
+			writer.print(cert.toString());
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Archiving error");
+		}
+	}
 }
