@@ -1,5 +1,7 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class City {
     
     @Column
     @OneToMany
+	@JsonManagedReference
     private List<Office> offices;
 
 	public Long getId() {

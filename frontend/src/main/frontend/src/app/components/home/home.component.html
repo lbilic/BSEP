@@ -1,3 +1,38 @@
-<p>
-  home works!
-</p>
+<div style="display: flex; padding: 20px; min-height: 50vh; margin-top: 25px;">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+      <li class="mat-tree-node">
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <button mat-icon-button disabled></button>
+        {{node.nameId}}
+        <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span>
+        <button style="margin-left: 14px !important;" *ngIf="!node.hasCert && node.canAddCertificate" mat-button color="primary">Add certificate</button>
+        <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certicicate</span>
+      </li>
+    </mat-tree-node>
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+      <li>
+        <div class="mat-tree-node">
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          {{node.nameId}}
+          <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span>
+          <button style="margin-left: 14px !important;" *ngIf="!node.hasCert && node.canAddCertificate" mat-button color="primary" (click)="addCertificate(node.id)">Add certificate</button>
+          <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certicicate</span>
+        </div>
+        <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+          <ng-container matTreeNodeOutlet></ng-container>
+        </ul>
+      </li>
+    </mat-nested-tree-node>
+  </mat-tree>
+</div>
+<div style="display: table; text-align: center; width: 100%;">
+  <button mat-raised-button color="primary">Update</button>
+</div>

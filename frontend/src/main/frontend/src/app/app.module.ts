@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtService } from './services/auth/jwt.service';
+import { CertificatesService } from './services/certificates.service';
 import { SoftwareCertificatesComponent, ChecklistDatabase } from './components/software-certificates/software-certificates.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatTreeModule, MatFormFieldModule, MatIconModule} from '@angular/material';
@@ -36,7 +37,7 @@ import {MatButtonModule, MatCheckboxModule, MatTreeModule, MatFormFieldModule, M
     MatIconModule
   ],
   providers: [
-    JwtService, ChecklistDatabase
+    JwtService, ChecklistDatabase, CertificatesService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,14 +1,11 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Software {
@@ -27,7 +24,8 @@ public class Software {
     @Column
     private Boolean hasCert;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
     private Office office;
 
 	public Long getId() {
@@ -60,5 +58,13 @@ public class Software {
 
 	public void setOffice(Office office) {
 		this.office = office;
+	}
+
+	public String getNameId() {
+		return nameId;
+	}
+
+	public void setNameId(String nameId) {
+		this.nameId = nameId;
 	}
 }
