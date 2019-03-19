@@ -1,6 +1,7 @@
 package com.kits.project.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
 
@@ -24,10 +25,12 @@ public class Office {
     private Boolean hasCert;
 
     @OneToOne(targetEntity = City.class)
+	@JsonBackReference
     private City city;
 
     @Column
     @OneToMany
+	@JsonManagedReference
     private List<Software> softwares;
 
 	public Long getId() {

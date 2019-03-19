@@ -33,6 +33,8 @@ import com.kits.project.util.CertificateGenerator;
 import com.kits.project.util.IssuerData;
 import com.kits.project.util.SubjectData;
 
+import java.util.List;
+
 @Service
 public class CertificateService {
 	
@@ -44,7 +46,7 @@ public class CertificateService {
 
 	@Autowired
 	SoftwareRepository softwareRep;
-	
+
 	public String generateCert(String nameId) {
 		// TREBA PROVERITI STA STAVITI OVDE ZA JKS / SUN!
 		KeyStore store;
@@ -143,5 +145,11 @@ public class CertificateService {
 		}
 
 		return "Success";
+	}
+
+	public List<City> getAllData() {
+
+		System.out.println(cityRep.findAll());
+		return cityRep.findAll();
 	}
 }
