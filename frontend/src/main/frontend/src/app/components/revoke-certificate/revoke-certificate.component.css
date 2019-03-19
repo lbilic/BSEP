@@ -13,3 +13,11 @@
   margin-left: 20px;
   font-size: smaller;
 }
+
+.revoke-font {
+  background-color: crimson;
+  color: cornsilk;
+  padding: 2px;
+  font-size: small;
+}
+

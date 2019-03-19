@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit{
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
   addCertificate(id) {
-    console.log(id);
     this.certificatesService.addCertificate(id);
   }
 
@@ -43,7 +42,7 @@ export class HomeComponent implements OnInit{
     this.certificatesService.getAllData().subscribe((res : any[]) => {
       responseData = res;
       responseData.forEach((city) => {
-        city.canAddCertificate = false
+        city.canAddCertificate = true
         city.children = city.offices;
         delete city.offices;
         city.children.forEach((office) => {
@@ -55,7 +54,6 @@ export class HomeComponent implements OnInit{
           })
         });
       })
-      console.log(responseData);
       this.dataSource.data = responseData;
     });
   }

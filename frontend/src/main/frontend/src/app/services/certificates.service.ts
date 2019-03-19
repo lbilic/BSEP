@@ -17,6 +17,7 @@ export class CertificatesService {
       data =>  {
         if(data==='Success') {
           alert('Certificate successfully generated!');
+          window.location.reload();
         } else {
           alert('There has been an error while generating certificate');
         }
@@ -25,10 +26,22 @@ export class CertificatesService {
 
   deleteCertificate(id: number) {
     console.log(id);
-    return this.http.delete(`http://localhost:8080/api/cert/` + id).toPromise();
+    return this.http.delete(`http://localhost:8080/api/cert/` + id,{responseType: 'text'}).subscribe(
+      data =>  {
+        if(data==='Success') {
+          alert('Certificate successfully revoked!');
+          window.location.reload();
+        } else {
+          alert('There has been an error while revoking certificate');
+        }
+      });
   }
 
   getAllData(): Observable<Object> {
     return this.http.get(`http://localhost:8080/api/cert/all-data`);
+  }
+
+  getCertificate(id): Observable<Object> {
+    return this.http.get(`http://localhost:8080/api/cert/` + id);
   }
 }

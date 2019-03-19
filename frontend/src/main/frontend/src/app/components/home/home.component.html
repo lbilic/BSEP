@@ -8,7 +8,7 @@
         {{node.nameId}}
         <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span>
         <button style="margin-left: 14px !important;" *ngIf="!node.hasCert && node.canAddCertificate" mat-button color="primary" (click)="addCertificate(node.nameId)">Add certificate</button>
-        <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certicicate</span>
+        <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certificate</span>
       </li>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
@@ -24,7 +24,7 @@
           {{node.nameId}}
           <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span>
           <button style="margin-left: 14px !important;" *ngIf="!node.hasCert && node.canAddCertificate" mat-button color="primary" (click)="addCertificate(node.nameId)">Add certificate</button>
-          <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certicicate</span>
+          <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certificate</span>
         </div>
         <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
           <ng-container matTreeNodeOutlet></ng-container>

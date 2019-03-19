@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Softwares with certificates</h1>
+<div *ngFor="let software of softwares; let i = index" >
+  <mat-checkbox color="primary" *ngIf="software.nameId !== id && software.hasCert" class="example-margin">
+    {{software.nameId}}
+  </mat-checkbox>
+</div>
+
+<div style="display: table; text-align: center; width: 100%;">
+  <button mat-raised-button color="primary">Update</button>
+</div>

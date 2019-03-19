@@ -1,0 +1,22 @@
+.revoke-certificate {
+  margin-left: 20px;
+  font-size: smaller;
+}
+
+.revoke-font {
+  background-color: crimson;
+  color: cornsilk;
+  padding: 2px;
+  font-size: small;
+}
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
