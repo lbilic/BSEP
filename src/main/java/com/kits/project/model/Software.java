@@ -3,7 +3,10 @@ package com.kits.project.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,6 +30,29 @@ public class Software {
     @ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference
     private Office office;
+
+    @ManyToMany
+	private List<Software> connectedSoftware;
+
+    public Software() {
+    	this.connectedSoftware = new ArrayList<Software>();
+	}
+
+	public Software(String nameId, String certPath, Boolean hasCert, Office office, List<Software> connectedSoftware) {
+		this.nameId = nameId;
+		this.certPath = certPath;
+		this.hasCert = hasCert;
+		this.office = office;
+		this.connectedSoftware = connectedSoftware;
+	}
+
+	public Software(String nameId, String certPath, Boolean hasCert, Office office) {
+		this.nameId = nameId;
+		this.certPath = certPath;
+		this.hasCert = hasCert;
+		this.office = office;
+		this.connectedSoftware = new ArrayList<Software>();
+	}
 
 	public Long getId() {
 		return id;
@@ -66,5 +92,13 @@ public class Software {
 
 	public void setNameId(String nameId) {
 		this.nameId = nameId;
+	}
+
+	public List<Software> getConnectedSoftware() {
+		return connectedSoftware;
+	}
+
+	public void setConnectedSoftware(List<Software> connectedSoftware) {
+		this.connectedSoftware = connectedSoftware;
 	}
 }
