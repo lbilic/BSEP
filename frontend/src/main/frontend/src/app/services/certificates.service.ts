@@ -17,6 +17,7 @@ export class CertificatesService {
       data =>  {
         if(data==='Success') {
           alert('Certificate successfully generated!');
+          window.location.reload();
         } else {
           alert('There has been an error while generating certificate');
         }
@@ -30,5 +31,9 @@ export class CertificatesService {
 
   getAllData(): Observable<Object> {
     return this.http.get(`http://localhost:8080/api/cert/all-data`);
+  }
+
+  getCertificate(id): Observable<Object> {
+    return this.http.get(`http://localhost:8080/api/cert` + id);
   }
 }
