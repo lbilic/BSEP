@@ -1,6 +1,8 @@
 package com.kits.project.security;
 
 import com.kits.project.model.AccountAuthority;
+import com.kits.project.model.Permission;
+import com.kits.project.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -69,16 +71,10 @@ public class JWTUtils {
                 && !isTokenExpired(token);
     }
 
-    public String generateToken(UserDetails userDetails, Long id, List<AccountAuthority> accountAuthorities) {
+    public String generateToken(UserDetails userDetails, Long id) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", userDetails.getUsername());
         claims.put("created", new Date(System.currentTimeMillis()));
-        List<String> roles = new ArrayList<>();
-        for(AccountAuthority aa : accountAuthorities)
-            for(AccountAuthority aa1 : aa.getAuthority().getAccountAuthorities()) {
-                roles.add(aa1.getAuthority().getName());
-            }
-        claims.put("roles", roles);
         claims.put("id", id);
         return Jwts.builder().setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))

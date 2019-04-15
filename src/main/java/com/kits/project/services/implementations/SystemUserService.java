@@ -42,6 +42,10 @@ public class SystemUserService {
 		
 		return "Successful";
 	}
+
+	public SystemUser getUser(String username) {
+		return userRep.findByUsername(username);
+	}
 	
 	public String editUser(SystemUser user) {
 		SystemUser foundUser;
