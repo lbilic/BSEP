@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan("com.example.SiemAgent")
+@ComponentScan("com.example.components")
 public class SiemAgentApplication {
 	static
 	{
