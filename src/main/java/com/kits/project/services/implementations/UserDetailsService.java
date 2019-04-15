@@ -1,7 +1,6 @@
 package com.kits.project.services.implementations;
 
-import com.kits.project.model.Account;
-import com.kits.project.model.AccountAuthority;
+import com.kits.project.model.*;
 import com.kits.project.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +19,10 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private AccountRepository accountRepository;
 
+
+    @Autowired
+    private SystemUserService systemUserService;
+
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,11 +31,13 @@ public class UserDetailsService implements org.springframework.security.core.use
         if (account == null) {
             throw new UsernameNotFoundException(String.format("There is no account with username '%s'.", username));
         } else {
+            SystemUser systemUser = systemUserService.getUser(account.getUsername());
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            for (AccountAuthority accountAuthority: account.getAccountAuthorities()) {
-                grantedAuthorities.add(new SimpleGrantedAuthority(accountAuthority.getAuthority().getName()));
+            for (Role role : systemUser.getRoles()) {
+                for (Permission permission : role.getPermissions()) {
+                    grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
+                }
             }
-
             return new org.springframework.security.core.userdetails.User(
                     account.getUsername(),
                     account.getPassword(),

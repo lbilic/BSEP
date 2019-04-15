@@ -5,9 +5,11 @@ import com.kits.project.DTOs.TokenDTO;
 import com.kits.project.exception.BadRequestException;
 import com.kits.project.exception.ForbiddenException;
 import com.kits.project.model.Account;
+import com.kits.project.model.SystemUser;
 import com.kits.project.security.JWTUtils;
 import com.kits.project.services.implementations.AccountAuthorityService;
 import com.kits.project.services.implementations.AccountService;
+import com.kits.project.services.implementations.SystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,6 +43,9 @@ public class AccountController {
     @Autowired
     private AccountAuthorityService accountAuthorityService;
 
+    @Autowired
+    private SystemUserService systemUserService;
+
     @RequestMapping(
             value = "/login",
             method = RequestMethod.POST,
@@ -55,9 +60,9 @@ public class AccountController {
             Account account = this.userServiceInterface.findByUsername(loginDTO.getUsername());
 
             UserDetails details = userDetailsService.loadUserByUsername(loginDTO.getUsername());
-
+            SystemUser systemUser = systemUserService.getUser(account.getUsername());
             Long id = account.getId();
-            TokenDTO userToken = new TokenDTO(jwtUtils.generateToken(details, id, account.getAccountAuthorities()));
+            TokenDTO userToken = new TokenDTO(jwtUtils.generateToken(details, id));
             return new ResponseEntity<>(userToken, HttpStatus.OK);
         } catch(ForbiddenException ex) {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
