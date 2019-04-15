@@ -18,9 +18,9 @@ public class SiemAgentApplication {
 		System.setProperty("javax.net.debug", "all");
 		System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
 		System.setProperty("https.protocols", "TLSv1.2");
-		System.setProperty("javax.net.ssl.trustStore", "c://jks//SiemAgent.jks");
+		System.setProperty("javax.net.ssl.trustStore", "C://jks//SiemAgent.jks");
 		System.setProperty("javax.net.ssl.trustStorePassword", "password");
-		System.setProperty("javax.net.ssl.keyStore",  "c://jks//SiemAgent.jks");
+		System.setProperty("javax.net.ssl.keyStore",  "C://jks//SiemAgent.jks");
 		System.setProperty("javax.net.ssl.keyStorePassword", "password");
 
 		javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(

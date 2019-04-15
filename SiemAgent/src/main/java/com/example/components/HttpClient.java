@@ -16,8 +16,12 @@ public class HttpClient implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ResponseEntity<String> response = template.getForEntity("https://localhost:8443/test",
-                String.class);
-        System.out.println(response.getBody());
+        try {
+            ResponseEntity<String> response = template.getForEntity("https://localhost:8443/test",
+                    String.class);
+            System.out.println(response.getBody());
+        } catch(Exception e) {
+            System.out.println("Bad certificate!!!!!!!!");
+        }
     }
 }
