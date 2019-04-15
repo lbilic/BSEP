@@ -23,6 +23,7 @@ import {
   MatIconModule,
   MatDialogModule
 } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 import { AnonymousGuard } from './shared/guards/anonymous.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
@@ -30,6 +31,9 @@ import { RevokeCertificateComponent } from './components/revoke-certificate/revo
 import {JwtInterceptor} from "./shared/interceptors/JwtInterceptor";
 import { ShowCertificateComponent } from './components/revoke-certificate/show-certificate/show-certificate.component';
 import { EditCommunicationComponent } from './components/software-certificates/edit-communication/edit-communication.component';
+import { ManageAccessComponent } from './components/manage-access/manage-access.component';
+import { EditAccessComponent } from './components/edit-access/edit-access.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { EditCommunicationComponent } from './components/software-certificates/e
     RevokeCertificateComponent,
     ShowCertificateComponent,
     SoftwareCertificatesComponent,
-    EditCommunicationComponent
+    EditCommunicationComponent,
+    ManageAccessComponent,
+    EditAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,9 @@ import { EditCommunicationComponent } from './components/software-certificates/e
     MatTreeModule,
     MatFormFieldModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule,
+    DragDropModule
   ],
   providers: [
     {

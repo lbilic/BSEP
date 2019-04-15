@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kits.project.DTOs.RelationsDTO;
 import com.kits.project.model.Permission;
 import com.kits.project.model.Role;
 import com.kits.project.model.SystemUser;
@@ -63,12 +64,12 @@ public class SystemUserService {
 		return "Successful";
 	}
 	
-	public String removeUser(SystemUser user) {
-		if(userRep.findByUsername(user.getUsername())==null) {
+	public String removeUser(String username) {
+		if(userRep.findByUsername(username)==null) {
 			return "Failed";
 		}
 		
-		userRep.delete(userRep.findByUsername(user.getUsername()));
+		userRep.delete(userRep.findByUsername(username));
 		
 		return "Successful";
 	}
@@ -110,12 +111,12 @@ public class SystemUserService {
 		return "Successful";
 	}
 	
-	public String removeRole(Role role) {
-		if(roleRep.findByName(role.getName())==null) {
+	public String removeRole(String name) {
+		if(roleRep.findByName(name)==null) {
 			return "Failed";
 		}
 		
-		roleRep.delete(roleRep.findByName(role.getName()));
+		roleRep.delete(roleRep.findByName(name));
 
 		return "Successful";
 	}
@@ -133,12 +134,12 @@ public class SystemUserService {
 		return "Successful";
 	}
 	
-	public String removePermission(Permission permission) {
-		if(permissionRep.findByName(permission.getName())==null) {
+	public String removePermission(String name) {
+		if(permissionRep.findByName(name)==null) {
 			return "Failed";
 		}
 		
-		permissionRep.delete(permissionRep.findByName(permission.getName()));
+		permissionRep.delete(permissionRep.findByName(name));
 		
 		return "Successful";
 	}
@@ -167,4 +168,56 @@ public class SystemUserService {
 		return permissions;
 	}
 	
+	public RelationsDTO getUserRoles(String username) {
+		RelationsDTO relations = new RelationsDTO();
+		SystemUser user;
+		
+		if((user = userRep.findByUsername(username)) == null) {
+			return null;
+		}
+		
+		if(user.getRoles() == null) {
+			return null;
+		}
+		
+		relations.setOwned(new ArrayList<String>());
+		for (Role role : user.getRoles()) {
+			relations.getOwned().add(role.getName());
+		}
+		
+		relations.setOthers(new ArrayList<String>());
+		for (Role role : roleRep.findAll()) {
+			if(relations.getOwned().indexOf(role.getName()) == -1) {
+				relations.getOthers().add(role.getName());
+			}
+		}
+		
+		return relations;
+	}
+	
+	public RelationsDTO getRolePermissions(String name) {
+		RelationsDTO relations = new RelationsDTO();
+		Role found_role;
+		
+		if((found_role = roleRep.findByName(name)) == null) {
+			return null;
+		}
+		
+		if(found_role.getPermissions() == null) {
+			return null;
+		}
+		relations.setOwned(new ArrayList<String>());
+		for (Permission permission : found_role.getPermissions()) {
+			relations.getOwned().add(permission.getName());
+		}
+		
+		relations.setOthers(new ArrayList<String>());
+		for (Permission permission : permissionRep.findAll()) {
+			if(relations.getOwned().indexOf(permission.getName()) == -1) {
+				relations.getOthers().add(permission.getName());
+			}
+		}
+		
+		return relations;
+	}
 }

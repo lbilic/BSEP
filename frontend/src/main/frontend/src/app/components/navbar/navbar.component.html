@@ -19,6 +19,17 @@
           Revoke certificate
         </a>
       </li>
+      <li *ngIf="jwtService.tokenExist()" class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/manage-access">
+          Manage access
+        </a>
+      </li>
+
+      <li *ngIf="jwtService.tokenExist()" class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/edit-access">
+          Edit access
+        </a>
+      </li>
     </ul>
   </div>
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">

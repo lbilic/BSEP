@@ -55,9 +55,8 @@ INSERT INTO permission (id,name) values (504,'removeUser');
 INSERT INTO permission (id,name) values (505,'editUser');
 INSERT INTO permission (id,name) values (506,'addRole');
 INSERT INTO permission (id,name) values (507,'removeRole');
-INSERT INTO permission (id,name) values (508,'removeRole');
-INSERT INTO permission (id,name) values (509,'addPermission');
-INSERT INTO permission (id,name) values (510,'removePermission');
+INSERT INTO permission (id,name) values (508,'addPermission');
+INSERT INTO permission (id,name) values (509,'removePermission');
 
 INSERT INTO role (id,name) values (500,'system_admin');
 
@@ -71,7 +70,6 @@ INSERT INTO role_permissions (role_id,permissions_id) values (500,506);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,507);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,508);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,509);
-INSERT INTO role_permissions (role_id,permissions_id) values (500,510);
 
 INSERT INTO system_user (id,username) values (500,'aa');
 

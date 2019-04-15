@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-4">
+    <select class="form-control" [(ngModel)]="selected_type" (change)="typeChange()">
+      <option *ngFor="let type of modify_types" [ngValue]="type" >{{type}}</option>
+    </select>
+  </div>
+  <div class="col-4">
+      <select class="form-control" [(ngModel)]="selected_data" (change)="dataChange()">
+        <option *ngFor="let data of modify_data" [ngValue]="data" >{{data}}</option>
+      </select>
+  </div>
+  <div class="col-4">
+    <button class="btn btn-success btn-block btn-md" (click)="saveChanges()">Save current display</button>
+  </div>
+</div>
+<div class="example-container">
+  <h2>Owned</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="left_side"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of left_side" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Others</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="right_side"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of right_side" cdkDrag>{{item}}</div>
+  </div>
+</div>

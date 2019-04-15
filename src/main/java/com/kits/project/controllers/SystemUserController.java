@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kits.project.DTOs.RelationsDTO;
 import com.kits.project.model.Permission;
 import com.kits.project.model.Role;
 import com.kits.project.model.SystemUser;
@@ -34,11 +36,11 @@ public class SystemUserController {
     }
 
     @RequestMapping(
-    		value = "/user",
+    		value = "/user/{username}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity removeUser(@RequestBody SystemUser user) {
-    	return new ResponseEntity<String>(userService.removeUser(user),HttpStatus.OK);
+    public ResponseEntity removeUser(@PathVariable String username) {
+    	return new ResponseEntity<String>(userService.removeUser(username),HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -58,11 +60,11 @@ public class SystemUserController {
     }
 
     @RequestMapping(
-    		value = "/role",
+    		value = "/role/{name}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity removeRole(@RequestBody Role role) {
-    	return new ResponseEntity<String>(userService.removeRole(role),HttpStatus.OK);
+    public ResponseEntity removeRole(@PathVariable String name) {
+    	return new ResponseEntity<String>(userService.removeRole(name),HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -82,11 +84,11 @@ public class SystemUserController {
     }
 
     @RequestMapping(
-    		value = "/permission",
+    		value = "/permission/{name}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity removeRole(@RequestBody Permission permission) {
-    	return new ResponseEntity<String>(userService.removePermission(permission),HttpStatus.OK);
+    public ResponseEntity removePermission(@PathVariable String name) {
+    	return new ResponseEntity<String>(userService.removePermission(name),HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -98,7 +100,7 @@ public class SystemUserController {
     }
 
     @RequestMapping(
-    		value = "/roles",
+    		value = "/role",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getRoles() {
@@ -112,5 +114,21 @@ public class SystemUserController {
     public ResponseEntity getPermissions() {
     	return new ResponseEntity<List<String>>(userService.getPermissions(),HttpStatus.OK);
     }
+    
+    @RequestMapping(
+    		value = "/user/{username}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUsers(@PathVariable String username) {
+    	return new ResponseEntity<RelationsDTO>(userService.getUserRoles(username),HttpStatus.OK);
+    }
 
+    @RequestMapping(
+    		value = "/role/{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getRoles(@PathVariable String name) {
+    	return new ResponseEntity<RelationsDTO>(userService.getRolePermissions(name),HttpStatus.OK);
+    }
+    
 }

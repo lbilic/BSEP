@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-4">
+    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="new username.."/>
+    <div><button class="btn btn-success btn-block btn-md" (click)="addUser()">Add user</button></div>
+    <div class="alert alert-light selected_output text-center">Selected user: {{selected_user}}</div>
+    <div><button class="btn btn-danger btn-block btn-md" (click)="removeUser()">Delete</button></div>
+    <div class="alert alert-light selected_output text-center">List of users</div>
+    <div class="list-group">
+      <button *ngFor="let user of users" type="button" class="list-group-item list-group-item-action text-center"
+              (click)="selectUser(user)">{{user}}</button>
+    </div>
+  </div>
+  <div class="col-4">
+    <input type="text" class="form-control" id="role_name" name="role_name" [(ngModel)]="role_name" placeholder="new role name.."/>
+    <div><button class="btn btn-success btn-block btn-md" (click)="addRole()">Add role</button></div>
+    <div class="alert alert-light selected_output text-center">Selected role: {{selected_role}}</div>
+    <div><button class="btn btn-danger btn-block btn-md" (click)="removeRole()">Delete</button></div>
+    <div class="alert alert-light selected_output text-center">List of roles</div>
+    <div class="list-group">
+      <button *ngFor="let role of roles" type="button" class="list-group-item list-group-item-action text-center"
+              (click)="selectRole(role)">{{role}}</button>
+    </div>
+  </div>
+  <div class="col-4">
+    <input type="text" class="form-control" id="permission_name" name="permission_name" [(ngModel)]="permission_name" placeholder="new permission name.."/>
+    <div><button class="btn btn-success btn-block btn-md" (click)="addPermission()">Add permission</button></div>
+    <div class="alert alert-light selected_output text-center">Selected permission: {{selected_permission}}</div>
+    <div><button class="btn btn-danger btn-blocked btn-block btn-md" (click)="removePermission()">Delete</button></div>
+    <div class="alert alert-light selected_output text-center">List of permissions</div>
+    <div class="list-group">
+      <button *ngFor="let permission of permissions" type="button" class="list-group-item list-group-item-action text-center"
+              (click)="selectPermission(permission)">{{permission}}</button>
+    </div>
+  </div>
+</div>
+
+
+<button (click)="addUser()">
+  Add user
+</button>
