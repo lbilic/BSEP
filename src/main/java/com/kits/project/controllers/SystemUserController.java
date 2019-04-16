@@ -84,11 +84,11 @@ public class SystemUserController {
     }
 
     @RequestMapping(
-    		value = "/permission/{name}",
-            method = RequestMethod.DELETE,
+    		value = "/remove_permission",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity removePermission(@PathVariable String name) {
-    	return new ResponseEntity<String>(userService.removePermission(name),HttpStatus.OK);
+    public ResponseEntity removePermission(@RequestBody Role role) {
+    	return new ResponseEntity<String>(userService.removePermission(role.getName()),HttpStatus.OK);
     }
 
     @RequestMapping(

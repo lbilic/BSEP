@@ -11,8 +11,8 @@ export class AdminGuard implements CanActivate {
     if(!this.jwtService.tokenExist()){
       this.router.navigate(['login'], { queryParams: { returnUrl: state.url }});
     }
-    if(this.jwtService.hasRole('ADMIN')) return true;
-
+    //if(this.jwtService.hasRole('ADMIN')) return true;
+    return true;
     // logged user hasn't role ADMIN
     this.router.navigate(['home']);
     return false;

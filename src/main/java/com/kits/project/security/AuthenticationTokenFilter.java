@@ -1,6 +1,15 @@
 package com.kits.project.security;
 
-import com.kits.project.services.implementations.SystemUserService;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,18 +19,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.*;
+import com.kits.project.repositories.SystemUserRepository;
 
 public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
 
     @Autowired
     private JWTUtils jwtUtils;
+    
+    @Autowired
+    private SystemUserRepository userRep;
 
     private HashMap<String, RouteAccess> myMap = createMap();
 
@@ -71,20 +77,15 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
         chain.doFilter(request, response);
     }
 
-    private boolean canUserVisitRoute(String url, String method, UserDetails userDetails) {
-        String key = "";
-        for (Map.Entry<String, RouteAccess> entry : myMap.entrySet()) {
-            if(url.startsWith(entry.getValue().url) && entry.getValue().method.equals(method)){
-                key = entry.getKey();
-            }
-
-        }
-        if(key.equals("")) {
-            return true;
-        }
+    private boolean canUserVisitRoute(String url, String method, UserDetails userDetails) {    	
+        String auth_url= "";
+        String auth_method= "";
         for (GrantedAuthority authority: userDetails.getAuthorities()) {
-            if(authority.getAuthority().equals(key)){
-                return true;
+        	auth_url = authority.getAuthority().split("\\|")[0];
+        	auth_method = authority.getAuthority().split("\\|")[1];
+
+            if(url.contains(auth_url) && auth_method.equals(method)){
+            	return true;
             }
         }
         return false;

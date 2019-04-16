@@ -47,18 +47,23 @@ INSERT INTO office_softwares (office_id,softwares_id) values (5,10);
 INSERT INTO office_softwares (office_id,softwares_id) values (6,11);
 INSERT INTO office_softwares (office_id,softwares_id) values (6,12);
 
-INSERT INTO permission (id,name) values (500,'generateCertificate');
-INSERT INTO permission (id,name) values (501,'getCertificate');
-INSERT INTO permission (id,name) values (502,'revoke');
-INSERT INTO permission (id,name) values (503,'addUser');
-INSERT INTO permission (id,name) values (504,'removeUser');
-INSERT INTO permission (id,name) values (505,'editUser');
-INSERT INTO permission (id,name) values (506,'addRole');
-INSERT INTO permission (id,name) values (507,'removeRole');
-INSERT INTO permission (id,name) values (508,'editRole');
-INSERT INTO permission (id,name) values (509,'addPermission');
-INSERT INTO permission (id,name) values (510,'removePermission');
-INSERT INTO permission (id,name) values (511,'getAllData');
+INSERT INTO permission (id,name) values (500,'/api/cert|POST');
+INSERT INTO permission (id,name) values (501,'/api/cert|GET');
+INSERT INTO permission (id,name) values (502,'/api/cert|DELETE');
+INSERT INTO permission (id,name) values (503,'/api/cert/all-data|GET');
+INSERT INTO permission (id,name) values (504,'/api/systemUser/user|PUT');
+INSERT INTO permission (id,name) values (505,'/api/systemUser/user|DELETE');
+INSERT INTO permission (id,name) values (506,'/api/systemUser/user|POST');
+INSERT INTO permission (id,name) values (507,'/api/systemUser/user|GET');
+INSERT INTO permission (id,name) values (508,'/api/systemUser/user/|GET');
+INSERT INTO permission (id,name) values (509,'/api/systemUser/role|PUT');
+INSERT INTO permission (id,name) values (510,'/api/systemUser/role|POST');
+INSERT INTO permission (id,name) values (511,'/api/systemUser/role|DELETE');
+INSERT INTO permission (id,name) values (512,'/api/systemUser/role|GET');
+INSERT INTO permission (id,name) values (513,'/api/systemUser/role/|GET');
+INSERT INTO permission (id,name) values (514,'/api/systemUser/permission|PUT');
+INSERT INTO permission (id,name) values (515,'/api/systemUser/remove_permission|POST');
+INSERT INTO permission (id,name) values (516,'/api/systemUser/permission|GET');
 
 INSERT INTO role (id,name) values (500,'system_admin');
 
@@ -74,6 +79,11 @@ INSERT INTO role_permissions (role_id,permissions_id) values (500,508);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,509);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,510);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,511);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,512);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,513);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,514);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,515);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,516);
 
 INSERT INTO system_user (id,username) values (500,'aa');
 

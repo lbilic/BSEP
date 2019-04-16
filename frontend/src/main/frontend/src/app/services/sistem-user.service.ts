@@ -70,7 +70,12 @@ export class SistemUserService {
   removePermission(name: string) {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.delete(this.base_url + "permission/" + name, {headers,responseType: 'text'});
+    var permission = {}
+    permission["name"] = name;
+    
+    var permission_json = JSON.stringify(permission);
+
+    return this.http.post(this.base_url + "remove_permission" , permission_json,{headers,responseType: 'text'});
   }
 
   getUserRoles(username){

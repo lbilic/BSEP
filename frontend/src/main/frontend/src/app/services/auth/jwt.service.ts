@@ -26,6 +26,7 @@ export class JwtService {
 
   getRolesFromToken(): Array<string> {
     let tokenDecoded: Token = this.decodeToken();
+    console.log(tokenDecoded);
     return tokenDecoded ? tokenDecoded.roles : Array<string>();
   }
 
