@@ -16,12 +16,10 @@ export class ShowCertificateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
-    console.log(this.data);
     this.certificate ={};
     this.certificate = this.certificatesService.getCertificate(this.data)
       .subscribe((res : any[]) => {
         this.certificate = res;
-        console.log(res);
       });
   }
 

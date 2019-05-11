@@ -34,6 +34,7 @@ import { EditCommunicationComponent } from './components/software-certificates/e
 import { ManageAccessComponent } from './components/manage-access/manage-access.component';
 import { EditAccessComponent } from './components/edit-access/edit-access.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AddCertificateComponent } from './components/home/add-certificate/add-certificate.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SoftwareCertificatesComponent,
     EditCommunicationComponent,
     ManageAccessComponent,
-    EditAccessComponent
+    EditAccessComponent,
+    AddCertificateComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     JwtService, CertificatesService, AnonymousGuard, AuthGuard, AdminGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ShowCertificateComponent, EditCommunicationComponent]
+  entryComponents: [ShowCertificateComponent, EditCommunicationComponent, AddCertificateComponent]
 })
 export class AppModule { }

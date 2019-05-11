@@ -5,10 +5,11 @@
       <li class="mat-tree-node">
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
-        {{node.nameId}}
-        <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span>
-        <button style="margin-left: 14px !important;" *ngIf="!node.hasCert && node.canAddCertificate" mat-button color="primary" (click)="addCertificate(node.nameId)">Add certificate</button>
-        <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certificate</span>
+        {{node.alias}}
+        <!-- <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span> -->
+        <!-- <button style="margin-left: 14px !important;" mat-button color="primary" (click)="addCertificate">Add CA</button> -->
+        <!-- <button style="margin-left: 14px !important;" mat-button color="secondary" (click)="addCertificate">Add software certificate</button> -->
+        <!-- <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certificate</span> -->
       </li>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
@@ -21,10 +22,9 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          {{node.nameId}}
-          <span class="certificate-exists" *ngIf="node.hasCert">Certificate granted</span>
-          <button style="margin-left: 14px !important;" *ngIf="!node.hasCert && node.canAddCertificate" mat-button color="primary" (click)="addCertificate(node.nameId)">Add certificate</button>
-          <span class="cant-add-certificate" *ngIf="!node.hasCert && !node.canAddCertificate">Can't add certificate</span>
+          {{node.alias}}
+          <button style="margin-left: 14px !important;" mat-button color="primary" (click)="addCertificateModal('CA')">Add CA</button>
+          <button style="margin-left: 14px !important;" mat-button color="secondary" (click)="addCertificateModal('software')">Add software certificate</button>
         </div>
         <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
           <ng-container matTreeNodeOutlet></ng-container>

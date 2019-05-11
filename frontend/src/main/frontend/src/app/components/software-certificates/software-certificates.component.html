@@ -6,8 +6,7 @@
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
         {{node.nameId}}
-        <button class="revoke-certificate" *ngIf="node.hasCert" mat-raised-button color="primary" (click)="editCommunication(node.nameId)">Edit software communication</button>
-        <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span>
+        <button class="revoke-certificate" mat-raised-button color="primary" (click)="editCommunication(node.nameId)">Edit software communication</button>
       </li>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->

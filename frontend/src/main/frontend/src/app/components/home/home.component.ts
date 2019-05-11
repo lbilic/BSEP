@@ -2,6 +2,8 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {Component, OnInit} from '@angular/core';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { CertificatesService } from '../../services/certificates.service';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import { AddCertificateComponent } from './add-certificate/add-certificate.component';
 
 interface ThreeNode {
   nameId: string;
@@ -22,7 +24,8 @@ export class HomeComponent implements OnInit{
   dataSource = new MatTreeNestedDataSource<ThreeNode>();
 
   constructor(
-    private certificatesService: CertificatesService
+    private certificatesService: CertificatesService,
+    private dialog: MatDialog
   ) {
     this.dataSource.data = [];
   }
@@ -33,8 +36,12 @@ export class HomeComponent implements OnInit{
 
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
-  addCertificate(id) {
-    this.certificatesService.addCertificate(id);
+  addCertificateModal(type) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {type: type};
+    dialogConfig.width ='450px';
+    this.dialog.open(AddCertificateComponent, dialogConfig);
   }
 
   getAllData(): void {
