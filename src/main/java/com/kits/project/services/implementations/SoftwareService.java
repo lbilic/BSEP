@@ -1,20 +1,22 @@
 package com.kits.project.services.implementations;
 
-import com.kits.project.model.Software;
-import com.kits.project.repositories.SoftwareRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.kits.project.repositories.CertificateNodeRepository;
 
 @Service
-public class SoftwareService implements com.kits.project.services.interfaces.SoftwareService {
-    @Autowired
-    private SoftwareRepository softwareRepository;
+public class SoftwareService {
+	@Autowired
+	CertificateNodeRepository certificateRep;
 
-    @Override
-    public List<Software> getConnectedSoftware(String nameId) {
-        Software software = this.softwareRepository.findByNameId(nameId);
-        return software.getConnectedSoftware();
-    }
+	public List<String> getConnectedSoftwares(String alias){
+		//ArrayList<CertificateNode> softwares = certificateRep.findAll
+		
+		return new ArrayList<String>();
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.kits.project.controllers;
 
-import com.kits.project.model.Software;
 import com.kits.project.services.implementations.SoftwareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,12 +18,11 @@ public class SoftwareController {
     private SoftwareService softwareService;
 
     @RequestMapping(
-            value = "/login",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity login(@RequestParam(value="nameId") String nameId) {
-        List<Software> connectedSoftware = softwareService.getConnectedSoftware(nameId);
+    public ResponseEntity login(@RequestParam(value="alias") String alias) {
+        List<String> connectedSoftware = softwareService.getConnectedSoftwares(alias);
 
         return new ResponseEntity(connectedSoftware, HttpStatus.OK);
     }

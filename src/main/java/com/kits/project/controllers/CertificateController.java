@@ -8,11 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kits.project.DTOs.CertificateDTO;
+import com.kits.project.model.CertificateNode;
 import com.kits.project.services.implementations.CertificateService;
 
 @RestController
@@ -24,28 +26,21 @@ public class CertificateController {
 	CertificateService certificateService;
 	
     @RequestMapping(
-    		value = "/{node_id}",
+    		value = "/{alias}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity generateCertificate(@PathVariable String node_id) {
-    	return new ResponseEntity<String>(certificateService.generateCert(node_id),HttpStatus.OK);
+    public ResponseEntity generateCertificate(@PathVariable String alias, @RequestBody CertificateNode certNode) {
+    	return new ResponseEntity<String>(certificateService.generateCert(alias,certNode),HttpStatus.OK);
     }
 
 	@RequestMapping(
-			value = "/{node_id}",
+			value = "/{alias}",
 			method = RequestMethod.DELETE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity revoke(@PathVariable String node_id) {
-		return new ResponseEntity<String>(certificateService.revokeCert(node_id),HttpStatus.OK);
+	public ResponseEntity revoke(@PathVariable String alias) {
+		//return new ResponseEntity<String>(certificateService.revokeCert(node_id),HttpStatus.OK);
+		return null;
 	}
-
-    @RequestMapping(
-    		value = "/{node_id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getCertificate(@PathVariable String node_id) {
-    	return new ResponseEntity<CertificateDTO>(certificateService.getCertificate(node_id),HttpStatus.OK);
-    }
 
     @RequestMapping(
 			value = "/all-data",
