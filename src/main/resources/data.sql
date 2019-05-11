@@ -7,10 +7,21 @@ INSERT INTO certificate_node (id, alias, is_software) values (500, 'ROOT' , 0);
 INSERT INTO certificate_node (id, alias, is_software) values (501, 'Boston' , 0);
 INSERT INTO certificate_node (id, alias, is_software) values (502, 'London' , 0);
 INSERT INTO certificate_node (id, alias, is_software) values (503, 'Hong Kong' , 0);
+INSERT INTO certificate_node (id, alias, is_software) values (504, 'Siem center' , 1);
+INSERT INTO certificate_node (id, alias, is_software) values (505, 'Siem agent1' , 1);
+INSERT INTO certificate_node (id, alias, is_software) values (506, 'Siem agent2' , 1);
 
 INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,501);
 INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,502);
 INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,503);
+INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,504);
+INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,505);
+INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,506);
+
+INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (504,505);
+INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (505,504);
+INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (505,506);
+INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (506,505);
 
 
 INSERT INTO permission (id,name) values (500,'/api/cert|POST');
@@ -30,6 +41,7 @@ INSERT INTO permission (id,name) values (513,'/api/systemUser/role/|GET');
 INSERT INTO permission (id,name) values (514,'/api/systemUser/permission|PUT');
 INSERT INTO permission (id,name) values (515,'/api/systemUser/remove_permission|POST');
 INSERT INTO permission (id,name) values (516,'/api/systemUser/permission|GET');
+INSERT INTO permission (id,name) values (517,'/api/software/|GET');
 
 INSERT INTO role (id,name) values (500,'system_admin');
 
@@ -50,6 +62,7 @@ INSERT INTO role_permissions (role_id,permissions_id) values (500,513);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,514);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,515);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,516);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,517);
 
 INSERT INTO system_user (id,username) values (500,'aa');
 

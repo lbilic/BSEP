@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kits.project.DTOs.CertificateDTO;
 import com.kits.project.model.CertificateNode;
 import com.kits.project.services.implementations.CertificateService;
 

@@ -18,12 +18,11 @@ public class SoftwareController {
     private SoftwareService softwareService;
 
     @RequestMapping(
+    		value = "/{alias}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity login(@RequestParam(value="alias") String alias) {
-        List<String> connectedSoftware = softwareService.getConnectedSoftwares(alias);
-
-        return new ResponseEntity(connectedSoftware, HttpStatus.OK);
+    public ResponseEntity login(@PathVariable(value="alias") String alias) {
+        return new ResponseEntity(softwareService.getConnectedSoftwares(alias), HttpStatus.OK);
     }
 }
