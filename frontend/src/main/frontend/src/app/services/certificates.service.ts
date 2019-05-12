@@ -59,4 +59,14 @@ export class CertificatesService {
         }
       });
   }
+
+  downloadCertificate(alias) {
+    return this.http.get(`http://localhost:8080/api/cert/download/` + alias, {responseType: 'blob'}).subscribe((response) => {
+      let blob = new Blob([<Blob>response], { type: 'application/zip'});
+      let link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = alias + '_storage' + '.zip';
+      link.click();
+    });
+  }
 }
