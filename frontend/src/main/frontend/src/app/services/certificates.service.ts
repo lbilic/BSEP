@@ -65,7 +65,7 @@ export class CertificatesService {
       let blob = new Blob([<Blob>response], { type: 'application/zip'});
       let link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'certificate_' + alias + '.zip';
+      link.download = alias + '_storage' + '.zip';
       link.click();
     });
   }
