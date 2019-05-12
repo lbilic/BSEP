@@ -58,4 +58,20 @@ public class CertificateService {
 		return certificateRep.findByAlias("ROOT");
 	}
 	
+	public CertificateNode getCertificate(String alias) {
+		if(alias == null) {
+			return null;
+		}
+		CertificateNode cert = certificateRep.findByAlias(alias);
+		
+		if(cert == null) {
+			return null;
+		}
+		
+		cert.setConnectedSoftwares(null);
+		cert.setChildren(null);		
+		
+		return cert;
+	}
+	
 }

@@ -39,4 +39,5 @@ public class SoftwareController {
     public ResponseEntity changeConnections(@PathVariable(value="alias") String alias, @RequestBody SoftwareConnections connections) {
         return new ResponseEntity(softwareService.changeSoftwareConnections(alias, connections), HttpStatus.OK);
     }
+    
 }
