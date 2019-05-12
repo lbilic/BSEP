@@ -2,9 +2,13 @@ package com.kits.project.controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -69,12 +73,39 @@ public class CertificateController {
     
     @RequestMapping(value = "/download/{alias}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody void downloadA(HttpServletResponse response) throws IOException {
-        File file = new File("archive/Boston_2019_03_19_16_37_26");
-        InputStream in = new FileInputStream(file);
+    	
+        FileOutputStream out_file = new FileOutputStream("downloadFiles/test.zip");
+        ZipOutputStream out = new ZipOutputStream(out_file);
+        
+        this.writeToZipFile("downloadFiles/test1.txt", out);
+        this.writeToZipFile("downloadFiles/test2.txt", out);
 
+        out.close();
+        out_file.close();
+        
+        File file = new File("downloadFiles/test.zip");
+        InputStream in = new FileInputStream(file);
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
         response.setHeader("Content-Length", String.valueOf(file.length()));
         FileCopyUtils.copy(in, response.getOutputStream());
+    }
+
+    public void writeToZipFile(String path, ZipOutputStream zipStream)
+            throws FileNotFoundException, IOException {
+
+        File aFile = new File(path);
+        FileInputStream fis = new FileInputStream(aFile);
+        ZipEntry zipEntry = new ZipEntry(path);
+        zipStream.putNextEntry(zipEntry);
+
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = fis.read(bytes)) >= 0) {
+            zipStream.write(bytes, 0, length);
+        }
+
+        zipStream.closeEntry();
+        fis.close();
     }
 }
