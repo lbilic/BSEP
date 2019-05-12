@@ -8,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kits.project.model.CertificateNode;
+import com.kits.project.model.CertificateStatus;
 import com.kits.project.repositories.CertificateNodeRepository;
+import com.kits.project.repositories.CertificateStatusRepository;
 
 @Service
 public class CertificateService {
 	@Autowired
 	CertificateNodeRepository certificateRep;
+	
+	@Autowired
+	CertificateStatusRepository certificateStatusRep;
 	
 	public String generateCert(String issued_by,CertificateNode certNode) {
 		if(certNode.getIsSoftware() == null) {
@@ -42,15 +47,17 @@ public class CertificateService {
 			return "Invalid request. Only CA can issue certificate";
 		}
 		
-		certificateRep.save(certNode);		
-		parentNode.getChildren().add(certNode);
-		certificateRep.save(parentNode);
+		
 		
 		// IZGENERISI SERTIFIKAT
 		// Imas issued_by ( alias roditelja ) i certNode ( podatke za cert )
 		
 		// Upisivanje u bazu za OCSP sa serijskim brojem i flag-om da li je povucen
-
+		// dodati serial number i u certNode 
+		certNode.setSerialNumber("1234");
+		certificateRep.save(certNode);		
+		parentNode.getChildren().add(certNode);
+		certificateRep.save(parentNode);
 		return "Success";
 	}
 	
@@ -66,9 +73,31 @@ public class CertificateService {
 			return "Data invalid";
 		}
 		
+		ArrayList<String> serialNumList = new ArrayList<String>();
+		this.getChildrenSerialNumbers(certNode, serialNumList);
+		
+		
+		for (String serialNumber : serialNumList) {
+			CertificateStatus status = certificateStatusRep.findBySerialNumber(serialNumber);
+			status.setIsRevoked(true);
+			certificateStatusRep.save(status);
+		}
 		certificateRep.delete(certNode);
 		
 		return "Success";
+	}
+	
+	public void getChildrenSerialNumbers(CertificateNode node, ArrayList<String> serialNumList) {
+		if(node.getIsSoftware()) {
+			return;
+		}
+		if(node.getChildren() == null) {
+			return;
+		}
+		for (CertificateNode child : node.getChildren()) {
+			serialNumList.add(child.getSerialNumber());
+			this.getChildrenSerialNumbers(child, serialNumList);
+		}
 	}
 	
 	public CertificateNode getAllData() {

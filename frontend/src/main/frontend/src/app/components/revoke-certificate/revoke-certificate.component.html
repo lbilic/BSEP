@@ -6,7 +6,7 @@
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
         {{node.alias}}
-        <button class="revoke-certificate" mat-raised-button color="warn" (click)="deleteCertificate(node.alias)">Revoke certificate</button>
+        <button class="revoke-certificate" mat-raised-button color="warn" (click)="revokeCertificate(node.alias)">Revoke certificate</button>
         <button class="revoke-certificate" mat-raised-button color="primary" (click)="showCertificate(node.alias)">Show certificate</button>
         <button class="revoke-certificate" mat-raised-button (click)="download(node.alias)">Download</button>
         <!-- <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span> -->
@@ -23,7 +23,7 @@
             </mat-icon>
           </button>
           {{node.alias}}
-          <button class="revoke-certificate" mat-raised-button color="warn" (click)="deleteCertificate(node.alias)">Revoke certificate</button>
+          <button class="revoke-certificate" mat-raised-button color="warn" (click)="revokeCertificate(node.alias)">Revoke certificate</button>
           <button class="revoke-certificate" mat-raised-button color="primary" (click)="showCertificate(node.alias)">Show certificate</button>
           <button class="revoke-certificate" mat-raised-button (click)="download(node.alias)">Download</button>
           <!-- <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span> -->

@@ -27,6 +27,9 @@ public class CertificateNode {
     private String alias;
     
     @Column
+		private String serialNumber;
+ 
+    @Column
     private String locality;
 
     @Column
@@ -137,6 +140,13 @@ public class CertificateNode {
 	public void setConnectedSoftwares(List<CertificateNode> connectedSoftwares) {
 		this.connectedSoftwares = connectedSoftwares;
 	}
-	
+
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
 	
 }

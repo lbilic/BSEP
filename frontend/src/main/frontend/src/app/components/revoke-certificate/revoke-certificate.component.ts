@@ -36,8 +36,8 @@ export class RevokeCertificateComponent implements OnInit {
 
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
-  deleteCertificate(id) {
-    this.certificatesService.deleteCertificate(id);
+  revokeCertificate(id) {
+    this.certificatesService.revokeCertificate(id);
   }
 
   showCertificate(id) {

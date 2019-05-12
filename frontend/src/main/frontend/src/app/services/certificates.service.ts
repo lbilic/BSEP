@@ -25,8 +25,8 @@ export class CertificatesService {
       });
   }
 
-  deleteCertificate(id: number) {
-    return this.http.delete(`http://localhost:8080/api/cert/` + id, {responseType: 'text'}).subscribe(
+  revokeCertificate(alias) {
+    return this.http.delete(`http://localhost:8080/api/cert/` + alias, {responseType: 'text'}).subscribe(
       data =>  {
         if(data==='Success') {
           alert('Certificate successfully revoked!');
