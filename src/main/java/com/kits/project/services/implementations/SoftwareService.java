@@ -44,7 +44,38 @@ public class SoftwareService {
 			return "Data invalid";
 		}
 		
-		return "";
+		CertificateNode requestedNode = certificateRep.findByAlias(alias);
+		CertificateNode helpNode;		
+		
+		if(requestedNode == null) {
+			return "Data invalid";
+		}
+
+		for (String cert_alias : connections.getConnectedWith()) {
+			if((helpNode = certificateRep.findByAlias(cert_alias)) == null) {
+				return "Data invalid";
+			}
+			if(!requestedNode.getConnectedSoftwares().contains(helpNode)) {
+				requestedNode.getConnectedSoftwares().add(helpNode);
+				helpNode.getConnectedSoftwares().add(requestedNode);
+				certificateRep.save(helpNode);
+				certificateRep.save(requestedNode);
+			}
+		}
+		
+		for (String cert_alias : connections.getOthers()) {
+			if((helpNode = certificateRep.findByAlias(cert_alias)) == null) {
+				return "Data invalid";
+			}
+			if(requestedNode.getConnectedSoftwares().contains(helpNode)) {
+				requestedNode.getConnectedSoftwares().remove(helpNode);
+				helpNode.getConnectedSoftwares().remove(requestedNode);
+				certificateRep.save(helpNode);
+				certificateRep.save(requestedNode);
+			}
+		}
+
+		return "Success";
 	}
 
 }
