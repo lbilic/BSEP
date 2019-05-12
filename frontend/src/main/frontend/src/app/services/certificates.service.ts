@@ -50,8 +50,8 @@ export class CertificatesService {
   }
 
   updateCommunication(alias, certificates) {
-    return this.http.post(`http://localhost:8080/api/software/` + alias, certificates).subscribe(
-      data =>  {
+    return this.http.post(`http://localhost:8080/api/software/` + alias, certificates, {responseType: 'text'}).subscribe(
+      (data) =>  {
         if(data==='Success') {
           alert('Software communication successfully updated!');
         } else {

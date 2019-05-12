@@ -17,7 +17,6 @@ export class AddCertificateComponent implements OnInit {
 
   ngOnInit() {
     this.certificate = new Certificate();
-    console.log(this.data);
     this.certificate.isSoftware = this.data.type === 'CA' ? false : true;
   }
 
@@ -27,7 +26,6 @@ export class AddCertificateComponent implements OnInit {
         this.certificate.dateIssued &&
         this.certificate.endDate &&
         this.certificate.locality) {
-      console.log(this.certificate);
       this.certificatesService.addCertificate(this.certificate, this.data.alias);
     }
   }

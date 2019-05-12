@@ -47,13 +47,12 @@ export class EditCommunicationComponent implements OnInit {
     }).map((item) =>{
       return item.alias;
     });
-    console.log(connectedCertificates);
-    console.log(notConnectedCertificates);
+
     this.certificatesService.updateCommunication(this.data.alias, 
       {
         connectedWith: connectedCertificates,
         others: notConnectedCertificates
-      });
+      })
   }
 
 

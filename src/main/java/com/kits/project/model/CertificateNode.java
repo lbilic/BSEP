@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -50,6 +51,7 @@ public class CertificateNode {
     
     @Column
     @ManyToMany
+    @JsonBackReference
     private List<CertificateNode> connectedSoftwares;
     
     public CertificateNode() {
