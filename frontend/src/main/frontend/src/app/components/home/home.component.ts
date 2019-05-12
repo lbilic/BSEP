@@ -36,10 +36,10 @@ export class HomeComponent implements OnInit{
 
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
-  addCertificateModal(type) {
+  addCertificateModal(type, alias) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {type: type};
+    dialogConfig.data = {type: type, alias: alias};
     dialogConfig.width ='450px';
     this.dialog.open(AddCertificateComponent, dialogConfig);
   }
@@ -47,20 +47,7 @@ export class HomeComponent implements OnInit{
   getAllData(): void {
     let responseData = [];
     this.certificatesService.getAllData().subscribe((res : any[]) => {
-      responseData = res;
-      responseData.forEach((city) => {
-        city.canAddCertificate = true
-        city.children = city.offices;
-        delete city.offices;
-        city.children.forEach((office) => {
-          office.canAddCertificate = city.hasCert;
-          office.children = office.softwares;
-          delete office.softwares;
-          office.children.forEach((software) => {
-            software.canAddCertificate = office.hasCert;
-          })
-        });
-      })
+      responseData = [res];
       this.dataSource.data = responseData;
     });
   }

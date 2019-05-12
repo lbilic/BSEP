@@ -37,7 +37,6 @@ export class RevokeCertificateComponent implements OnInit {
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
   deleteCertificate(id) {
-    console.log(id);
     this.certificatesService.deleteCertificate(id);
   }
 
@@ -51,20 +50,7 @@ export class RevokeCertificateComponent implements OnInit {
   getAllData(): void {
     let responseData = [];
     this.certificatesService.getAllData().subscribe((res : any[]) => {
-      responseData = res;
-      responseData.forEach((city) => {
-        city.canAddCertificate = false
-        city.children = city.offices;
-        delete city.offices;
-        city.children.forEach((office) => {
-          office.canAddCertificate = city.hasCert;
-          office.children = office.softwares;
-          delete office.softwares;
-          office.children.forEach((software) => {
-            software.canAddCertificate = office.hasCert;
-          })
-        });
-      })
+      responseData = [res];
       this.dataSource.data = responseData;
     });
   }

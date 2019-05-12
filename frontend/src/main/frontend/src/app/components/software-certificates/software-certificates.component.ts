@@ -25,7 +25,7 @@ export class SoftwareCertificatesComponent implements OnInit{
 
   treeControl = new NestedTreeControl<ThreeNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<ThreeNode>();
-  softwares = [];
+
   constructor(
     private certificatesService: CertificatesService,
     private dialog: MatDialog
@@ -39,32 +39,18 @@ export class SoftwareCertificatesComponent implements OnInit{
 
   hasChild = (_: number, node: ThreeNode) => !!node.children && node.children.length > 0;
 
-  editCommunication(id) {
+  editCommunication(alias) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '300px';
-    dialogConfig.data = { id: id, softwares: this.softwares };
+    dialogConfig.data = { alias: alias };
     this.dialog.open(EditCommunicationComponent, dialogConfig);
   }
 
   getAllData(): void {
     let responseData = [];
     this.certificatesService.getAllData().subscribe((res : any[]) => {
-      responseData = res;
-      responseData.forEach((city) => {
-        city.canAddCertificate = false
-        city.children = city.offices;
-        delete city.offices;
-        city.children.forEach((office) => {
-          office.canAddCertificate = city.hasCert;
-          office.children = office.softwares;
-          delete office.softwares;
-          office.children.forEach((software) => {
-            software.canAddCertificate = office.hasCert;
-          })
-          this.softwares = this.softwares.concat(office.children);
-        });
-      })
+      responseData = [res];
       this.dataSource.data = responseData;
     });
   }

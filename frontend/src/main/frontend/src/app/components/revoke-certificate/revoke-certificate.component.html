@@ -5,10 +5,10 @@
       <li class="mat-tree-node">
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
-        {{node.nameId}}
-        <button class="revoke-certificate" *ngIf="node.hasCert" mat-raised-button (click)="deleteCertificate(node.nameId)">Revoke certificate</button>
-        <button class="revoke-certificate" *ngIf="node.hasCert" mat-raised-button color="primary" (click)="showCertificate(node.nameId)">Show certificate</button>
-        <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span>
+        {{node.alias}}
+        <button class="revoke-certificate" mat-raised-button (click)="deleteCertificate(node.alias)">Revoke certificate</button>
+        <button class="revoke-certificate" mat-raised-button color="primary" (click)="showCertificate(node.alias)">Show certificate</button>
+        <!-- <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span> -->
       </li>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
@@ -21,10 +21,10 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          {{node.nameId}}
-          <button class="revoke-certificate" *ngIf="node.hasCert" mat-raised-button (click)="deleteCertificate(node.nameId)">Revoke certificate</button>
-          <button class="revoke-certificate" *ngIf="node.hasCert" mat-raised-button color="primary" (click)="showCertificate(node.nameId)">Show certificate</button>
-          <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span>
+          {{node.alias}}
+          <button class="revoke-certificate" mat-raised-button (click)="deleteCertificate(node.alias)">Revoke certificate</button>
+          <button class="revoke-certificate" mat-raised-button color="primary" (click)="showCertificate(node.alias)">Show certificate</button>
+          <!-- <span class="revoke-certificate revoke-font" *ngIf="!node.hasCert">No certificate</span> -->
         </div>
         <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
           <ng-container matTreeNodeOutlet></ng-container>

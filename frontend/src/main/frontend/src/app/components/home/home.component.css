@@ -19,8 +19,10 @@
 
 .certificate-exists{
   margin-left: 20px;
-  background-color: darkgreen;
-  color: cornsilk;
+  background-color: green;
+  color: white;
   padding: 2px;
-  font-size: smaller;
+  font-size: larger;
+  width: 150px;
+  text-align: center;
 }

@@ -28,7 +28,7 @@ export class AddCertificateComponent implements OnInit {
         this.certificate.endDate &&
         this.certificate.locality) {
       console.log(this.certificate);
-      this.certificatesService.addCertificate(this.certificate);
+      this.certificatesService.addCertificate(this.certificate, this.data.alias);
     }
   }
 }
