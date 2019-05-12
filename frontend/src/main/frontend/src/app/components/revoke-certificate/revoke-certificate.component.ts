@@ -54,4 +54,8 @@ export class RevokeCertificateComponent implements OnInit {
       this.dataSource.data = responseData;
     });
   }
+
+  download(alias) {
+    this.certificatesService.downloadCertificate(alias);
+  }
 }
