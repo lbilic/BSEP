@@ -3,6 +3,7 @@ package com.kits.project.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +47,7 @@ public class CertificateNode {
     private Boolean isSoftware;
 
     @Column
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<CertificateNode> children;
     
     @Column

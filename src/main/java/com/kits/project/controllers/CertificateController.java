@@ -49,8 +49,7 @@ public class CertificateController {
 			method = RequestMethod.DELETE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity revoke(@PathVariable String alias) {
-		//return new ResponseEntity<String>(certificateService.revokeCert(node_id),HttpStatus.OK);
-		return null;
+		return new ResponseEntity<String>(certificateService.revokeCert(alias),HttpStatus.OK);
 	}
 
     @RequestMapping(
@@ -72,18 +71,21 @@ public class CertificateController {
 	}
     
     @RequestMapping(value = "/download/{alias}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public @ResponseBody void downloadA(HttpServletResponse response) throws IOException {
+    public @ResponseBody void downloadFiles(HttpServletResponse response) throws IOException {
     	
-        FileOutputStream out_file = new FileOutputStream("downloadFiles/test.zip");
+    	// Pre ovoga treba da generises keyStore i trustStore i upises ih u
+    	// storage/keystore.jks i storage/truststore.jks
+    	
+        FileOutputStream out_file = new FileOutputStream("storage/stores.zip");
         ZipOutputStream out = new ZipOutputStream(out_file);
         
-        this.writeToZipFile("downloadFiles/test1.txt", out);
-        this.writeToZipFile("downloadFiles/test2.txt", out);
+        this.writeToZipFile("storage/keystore.jks", out);
+        this.writeToZipFile("storage/truststore.jks", out);
 
         out.close();
         out_file.close();
         
-        File file = new File("downloadFiles/test.zip");
+        File file = new File("storage/stores.zip");
         InputStream in = new FileInputStream(file);
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());

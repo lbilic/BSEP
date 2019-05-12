@@ -3,6 +3,8 @@ insert into authority (id, name) values (1, 'ADMIN');
 INSERT INTO accounts (ID, USERNAME, PASSWORD, EMAIL, LAST_NAME, FIRST_NAME) VALUES (789, 'aa', '$2a$10$9AG/inYS7fWOHPhxQCtd0Og2gVYnbhwFBUsHaAOek5QAKSQtWItRC', 'kwhshocker@gmail.com', 'aa','aa');
 INSERT INTO account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) VALUES (54, 789, 1);
 
+INSERT INTO certificate_status (id, serial_number , is_revoked) values (500, 'someSerialNum', 0);
+
 INSERT INTO certificate_node (id, alias, is_software) values (500, 'ROOT' , 0);
 INSERT INTO certificate_node (id, alias, is_software) values (501, 'Boston' , 0);
 INSERT INTO certificate_node (id, alias, is_software) values (502, 'London' , 0);

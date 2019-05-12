@@ -54,6 +54,23 @@ public class CertificateService {
 		return "Success";
 	}
 	
+	public String revokeCert(String alias) {
+		if(alias == null) {
+			return "Data invalid";
+		}
+		CertificateNode certNode;
+		
+		certNode = certificateRep.findByAlias(alias);
+		
+		if(certNode == null) {
+			return "Data invalid";
+		}
+		
+		certificateRep.delete(certNode);
+		
+		return "Success";
+	}
+	
 	public CertificateNode getAllData() {
 		return certificateRep.findByAlias("ROOT");
 	}
@@ -73,5 +90,7 @@ public class CertificateService {
 		
 		return cert;
 	}
+	
+	
 	
 }
