@@ -15,6 +15,8 @@ import com.kits.project.model.CertificateNode;
 import com.kits.project.model.CertificateStatus;
 import com.kits.project.repositories.CertificateNodeRepository;
 import com.kits.project.repositories.CertificateStatusRepository;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 @Service
 public class CertificateService {
@@ -25,19 +27,22 @@ public class CertificateService {
 	CertificateStatusRepository certificateStatusRep;
 	
 	public String generateCert(String issued_by,CertificateNode certNode) {
+		String regex = "^[a-zA-Z ]+$";
+		Pattern pattern = Pattern.compile(regex);
+		
 		if(certNode.getIsSoftware() == null) {
 			return "Data not valid1";
-		}else if(certNode.getAlias() == null) {
+		}else if(certNode.getAlias() == null || !pattern.matcher(certNode.getAlias()).matches()) {
 			return "Data not valid2";
-		}else if(certNode.getLocality() == null) {
+		}else if(certNode.getLocality() == null || !pattern.matcher(certNode.getLocality()).matches()) {
 			return "Data not valid3";
-		}else if(certNode.getStateName() == null) {
+		}else if(certNode.getStateName() == null || !pattern.matcher(certNode.getStateName()).matches()) {
 			return "Data not valid4";
 		}else if(certNode.getDateIssued() == null) {
 			return "Data not valid5";
 		}else if(certNode.getEndDate() == null) {
 			return "Data not valid6";
-		}else if(certNode.getCountryName() == null) {
+		}else if(certNode.getCountryName() == null || !pattern.matcher(certNode.getCountryName()).matches()) {
 			return "Data not vali7";
 		}
 		
@@ -97,6 +102,10 @@ public class CertificateService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		CertificateStatus status = new CertificateStatus();
+		status.setIsRevoked(false);
+		status.setSerialNumber(certNode.getSerialNumber());
+		certificateStatusRep.save(status);
 		certificateRep.save(certNode);		
 		parentNode.getChildren().add(certNode);
 		certificateRep.save(parentNode);
