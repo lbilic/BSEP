@@ -1,5 +1,6 @@
 package com.kits.project.services.implementations;
 
+import java.io.File;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,40 @@ public class CertificateService {
 		
 		// IZGENERISI SERTIFIKAT
 		// Imas issued_by ( alias roditelja ) i certNode ( podatke za cert )
-		
+		if(certNode.getIsSoftware()) {
+			// Generisi obican sertifikat
+			try{
+				long validity = (certNode.getEndDate().getTime() - certNode.getDateIssued().getTime())/1000;
+
+				String certPath = new File("src/main/resources/certs/a").getAbsolutePath();
+				certPath = certPath.substring(0, certPath.length()-1);
+				System.out.println(certPath);
+
+				Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && keytool -genkey -alias \"%s\" -keyalg RSA -keystore \"%s.jks\" -storetype JKS -dname \"CN=%s.megatravel.com,OU=%s,O=MegaTravel,L=%s,ST=%s,C=%s\" -keypass password -storepass password &&" +
+								"keytool -certreq -alias \"%s\" -keystore \"%s.jks\" -file \"%s.csr\" -storepass password && " +
+								"openssl x509 -CA ..\\CA\\caroot.cer -CAkey ..\\CA\\cakey.pem -CAserial ..\\CA\\serial.txt -req -in \"%s.csr\" -out \"%sCA.cer\" -days %d -passin pass:password && exit\"",
+						certPath, certNode.getAlias(), certNode.getAlias(),certNode.getAlias(),certNode.getAlias(), certNode.getLocality(), certNode.getStateName(), certNode.getCountryName(),
+						certNode.getAlias(), certNode.getAlias(), certNode.getAlias(),
+						certNode.getAlias(), certNode.getAlias(), validity/3600/24));
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		} else {
+			// Generisi CA
+			try {
+				String caPath = new File("src/main/resources/CA/a").getAbsolutePath();
+				caPath = caPath.substring(0, caPath.length() - 1);
+				System.out.println(caPath);
+				Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && set RANDFILE=rand && " +
+								"openssl req -new -keyout \"%scakey.pem\" -out \"%scareq.pem\" -config \"C:\\Program Files\\OpenSSL-Win64\\bin\\openssl.cfg\" -subj \"/C=%s/ST=%s/L=%s/O=MegaTravel/OU=%s/CN=%s.megatravel.com\" -passout pass:\"password\" && " +
+								"openssl x509 -signkey \"%scakey.pem\" -req -days 3650 -in \"%scareq.pem\" -out \"%sca.cer\" -extensions v3_ca -passin pass:password && exit\"",
+						caPath,
+						certNode.getAlias(), certNode.getAlias(), certNode.getCountryName(), certNode.getStateName(), certNode.getLocality(), certNode.getAlias(), certNode.getAlias(),
+						certNode.getAlias(), certNode.getAlias(), certNode.getAlias()));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 		// Upisivanje u bazu za OCSP sa serijskim brojem i flag-om da li je povucen
 		// dodati serial number i u certNode 
 		certNode.setSerialNumber("1234");
