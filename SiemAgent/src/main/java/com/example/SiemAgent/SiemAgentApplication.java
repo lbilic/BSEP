@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class SiemAgentApplication {
 	static
 	{
-		File ts = new File("src/main/resources/jks/SiemAgent2.jks");
+		File ts = new File("../SiemAgent/src/main/resources/jks/Siem agent4.jks");
 		System.setProperty("javax.net.debug", "all");
 		System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
 		System.setProperty("https.protocols", "TLSv1.2");
