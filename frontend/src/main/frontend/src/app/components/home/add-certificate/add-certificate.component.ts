@@ -19,6 +19,7 @@ export class AddCertificateComponent implements OnInit {
   endDateCtrl: FormControl;
   localityCtrl: FormControl;
   stateNameCtrl: FormControl;
+  length: Boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -49,6 +50,7 @@ export class AddCertificateComponent implements OnInit {
 
   addCertificate() {
     if (this.certificate.countryName.length !=2 ){
+      this.length = true;
       return;
     }
     this.certificatesService.addCertificate(this.certificate, this.data.alias);
