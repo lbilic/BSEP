@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,7 @@ public class CertificateController {
 	@Autowired
 	CertificateService certificateService;
 	
+	@PreAuthorize("hasAuthority('generateCertificate')")
     @RequestMapping(
     		value = "/{alias}",
             method = RequestMethod.POST,
@@ -44,6 +46,7 @@ public class CertificateController {
     	return new ResponseEntity<String>(certificateService.generateCert(alias,certNode),HttpStatus.OK);
     }
 
+	@PreAuthorize("hasAuthority('removeCertificate')")
 	@RequestMapping(
 			value = "/{alias}",
 			method = RequestMethod.DELETE,
@@ -52,6 +55,7 @@ public class CertificateController {
 		return new ResponseEntity<String>(certificateService.revokeCert(alias),HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('getAllCertData')")
     @RequestMapping(
 			value = "/all-data",
 			method = RequestMethod.GET,
@@ -61,6 +65,7 @@ public class CertificateController {
 		return new ResponseEntity(certificateService.getAllData(), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('getCertificate')")
     @RequestMapping(
 			value = "/{alias}",
 			method = RequestMethod.GET,
@@ -70,6 +75,7 @@ public class CertificateController {
 		return new ResponseEntity(certificateService.getCertificate(alias), HttpStatus.OK);
 	}
     
+	@PreAuthorize("hasAuthority('downloadStorage')")
     @RequestMapping(value = "/download/{alias}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody void downloadFiles(@PathVariable("alias") String alias, HttpServletResponse response) throws IOException {
     	

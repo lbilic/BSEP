@@ -26,25 +26,26 @@ INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected
 INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (506,505);
 
 
-INSERT INTO permission (id,name) values (500,'/api/cert|POST');
-INSERT INTO permission (id,name) values (501,'/api/cert|GET');
-INSERT INTO permission (id,name) values (502,'/api/cert|DELETE');
-INSERT INTO permission (id,name) values (503,'/api/cert/all-data|GET');
-INSERT INTO permission (id,name) values (504,'/api/systemUser/user|PUT');
-INSERT INTO permission (id,name) values (505,'/api/systemUser/user|DELETE');
-INSERT INTO permission (id,name) values (506,'/api/systemUser/user|POST');
-INSERT INTO permission (id,name) values (507,'/api/systemUser/user|GET');
-INSERT INTO permission (id,name) values (508,'/api/systemUser/user/|GET');
-INSERT INTO permission (id,name) values (509,'/api/systemUser/role|PUT');
-INSERT INTO permission (id,name) values (510,'/api/systemUser/role|POST');
-INSERT INTO permission (id,name) values (511,'/api/systemUser/role|DELETE');
-INSERT INTO permission (id,name) values (512,'/api/systemUser/role|GET');
-INSERT INTO permission (id,name) values (513,'/api/systemUser/role/|GET');
-INSERT INTO permission (id,name) values (514,'/api/systemUser/permission|PUT');
-INSERT INTO permission (id,name) values (515,'/api/systemUser/remove_permission|POST');
-INSERT INTO permission (id,name) values (516,'/api/systemUser/permission|GET');
-INSERT INTO permission (id,name) values (517,'/api/software/|GET');
-INSERT INTO permission (id,name) values (518,'/api/software/|POST');
+INSERT INTO permission (id,name) values (500,'generateCertificate');
+INSERT INTO permission (id,name) values (501,'getCertificate');
+INSERT INTO permission (id,name) values (502,'removeCertificate');
+INSERT INTO permission (id,name) values (503,'getAllCertData');
+INSERT INTO permission (id,name) values (504,'editSystemUser');
+INSERT INTO permission (id,name) values (505,'deleteSystemUser');
+INSERT INTO permission (id,name) values (506,'addSystemUser');
+INSERT INTO permission (id,name) values (507,'getUserRoles');
+INSERT INTO permission (id,name) values (508,'getAllSystemUsers');
+INSERT INTO permission (id,name) values (509,'editRole');
+INSERT INTO permission (id,name) values (510,'addRole');
+INSERT INTO permission (id,name) values (511,'deleteRole');
+INSERT INTO permission (id,name) values (512,'getRolePermissions');
+INSERT INTO permission (id,name) values (513,'getAllRoles');
+INSERT INTO permission (id,name) values (514,'addPermission');
+INSERT INTO permission (id,name) values (515,'deletePermission');
+INSERT INTO permission (id,name) values (516,'getPermissions');
+INSERT INTO permission (id,name) values (517,'getSoftwareConnections');
+INSERT INTO permission (id,name) values (518,'editSoftwareConnections');
+INSERT INTO permission (id,name) values (519,'downloadStorage');
 
 INSERT INTO role (id,name) values (500,'system_admin');
 
@@ -67,6 +68,7 @@ INSERT INTO role_permissions (role_id,permissions_id) values (500,515);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,516);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,517);
 INSERT INTO role_permissions (role_id,permissions_id) values (500,518);
+INSERT INTO role_permissions (role_id,permissions_id) values (500,519);
 
 INSERT INTO system_user (id,username) values (500,'aa');
 

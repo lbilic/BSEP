@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ public class SoftwareController {
     @Autowired
     private SoftwareService softwareService;
 
+	@PreAuthorize("hasAuthority('getSoftwareConnections')")
     @RequestMapping(
     		value = "/{alias}",
             method = RequestMethod.GET,
@@ -31,6 +33,7 @@ public class SoftwareController {
         return new ResponseEntity(softwareService.getConnectedSoftwares(alias), HttpStatus.OK);
     }
 
+	@PreAuthorize("hasAuthority('editSoftwareConnections')")
     @RequestMapping(
     		value = "/{alias}",
             method = RequestMethod.POST,
