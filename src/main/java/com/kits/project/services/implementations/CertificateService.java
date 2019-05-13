@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -169,11 +169,9 @@ public class CertificateService {
 			certPath = certPath.substring(0, certPath.length()-1);
 			CertificateNode cert = certificateRep.findByAlias(alias);
 
-			Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && " +
-					"del /f \"%s.jks\" &&" +
-					"cd \"%s\" &&" +
-					"copy \"%s_work.jks\" \"%s.jks\" /y && exit", certPath, alias, certPath, alias, alias));
-			p0.waitFor();
+			Path original = FileSystems.getDefault().getPath(certPath + "\\" + alias + "_work.jks");
+			Path target = FileSystems.getDefault().getPath(certPath + "\\" + alias + ".jks");
+			Files.copy(original, target, StandardCopyOption.REPLACE_EXISTING);
 
 			for(CertificateNode c : cert.getConnectedSoftwares()) {
 				// Dodaj svaki u truststore
