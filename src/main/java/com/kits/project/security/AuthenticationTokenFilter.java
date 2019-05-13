@@ -29,25 +29,6 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
     @Autowired
     private SystemUserRepository userRep;
 
-    private HashMap<String, RouteAccess> myMap = createMap();
-
-    private static HashMap<String, RouteAccess> createMap() {
-        HashMap<String, RouteAccess> myMap = new HashMap<String,RouteAccess>();
-        myMap.put("generateCertificate", new RouteAccess("/api/cert", "POST"));
-        myMap.put("getCertificate",  new RouteAccess("/api/cert", "GET"));
-        myMap.put("revoke", new RouteAccess("/api/cert", "DELETE"));
-        myMap.put("getAllData", new RouteAccess("/api/cert/all-data", "GET"));
-        myMap.put("addUser", new RouteAccess("/api/systemUser/user", "PUT"));
-        myMap.put("removeUser",new RouteAccess("/api/systemUser/user", "DELETE"));
-        myMap.put("editUser", new RouteAccess("/api/systemUser/user", "POST"));
-        myMap.put("addRole", new RouteAccess("/api/systemUser/role", "PUT"));
-        myMap.put("removeRole", new RouteAccess("/api/systemUser/role", "DELETE"));
-        myMap.put("editRole", new RouteAccess("/api/systemUser/role", "POST"));
-        myMap.put("addPermission", new RouteAccess("/api/systemUser/permissions", "PUT"));
-        myMap.put("editPermission", new RouteAccess("/api/systemUser/permissions", "DELETE"));
-        return myMap;
-    }
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -62,9 +43,7 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService
                     .loadUserByUsername(username);
-            if (jwtUtils.validateToken(authToken, userDetails) && this.canUserVisitRoute(((HttpServletRequest) request).getRequestURI(),
-                    ((HttpServletRequest) request).getMethod(),
-                    userDetails)) {
+            if (jwtUtils.validateToken(authToken, userDetails) ) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource()
@@ -76,19 +55,4 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
 
         chain.doFilter(request, response);
     }
-
-    private boolean canUserVisitRoute(String url, String method, UserDetails userDetails) {    	
-        String auth_url= "";
-        String auth_method= "";
-        for (GrantedAuthority authority: userDetails.getAuthorities()) {
-        	auth_url = authority.getAuthority().split("\\|")[0];
-        	auth_method = authority.getAuthority().split("\\|")[1];
-
-            if(url.contains(auth_url) && auth_method.equals(method)){
-            	return true;
-            }
-        }
-        return false;
-    }
-
 }
