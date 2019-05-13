@@ -81,7 +81,7 @@ public class SoftwareService {
 			}
 		}
 
-		certificateService.updateTrustStore(alias);
+		certificateService.updateTrustStore(updatedSoftwares);
 
 		return "Success";
 	}

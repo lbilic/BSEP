@@ -163,28 +163,32 @@ public class CertificateService {
 	}
 
 
-	public void updateTrustStore(String alias) {
+	public void updateTrustStoreEach(String alias) {
 		try{
 			String certPath = new File("src/main/resources/certs/a").getAbsolutePath();
 			certPath = certPath.substring(0, certPath.length()-1);
 			CertificateNode cert = certificateRep.findByAlias(alias);
 
+			Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && " +
+					"del /f \"%s.jks\" &&" +
+					"cd \"%s\" &&" +
+					"copy \"%s_work.jks\" \"%s.jks\" /y && exit", certPath, alias, certPath, alias, alias));
+			p0.waitFor();
+
 			for(CertificateNode c : cert.getConnectedSoftwares()) {
 				// Dodaj svaki u truststore
-				Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && " +
-								"del /f \"%s.jks\" &&" +
-								"copy \"%s_work.jks\" \"%s.jks\" /y &&" +
-								"keytool -importcert -alias \"%s\" -keystore \"%s.jks\" -file \"%sCA.cer\" -storepass password -noprompt && exit\"",
-						certPath, alias, alias, alias,c.getAlias(), alias, c.getAlias()));
-
 				Process p1 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && " +
-								"del /f \"%s.jks\" &&" +
-								"copy \"%s_work.jks\" \"%s.jks\" /y &&" +
 								"keytool -importcert -alias \"%s\" -keystore \"%s.jks\" -file \"%sCA.cer\" -storepass password -noprompt && exit\"",
-						certPath, c.getAlias(), c.getAlias(), c.getAlias(), alias, c.getAlias(), alias));
+						certPath, c.getAlias(), alias, c.getAlias()));
+				p1.waitFor();
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+	}
+
+	public void updateTrustStore(ArrayList<String> updatedSoftwares) {
+		for(String alias : updatedSoftwares)
+			this.updateTrustStoreEach(alias);
 	}
 }
