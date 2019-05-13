@@ -66,7 +66,13 @@ export class CertificatesService {
       let link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = alias + '_storage' + '.zip';
-      link.click();
+      link.dispatchEvent(
+        new MouseEvent(`click`, {
+          bubbles: true,
+          cancelable: true,
+          view: window
+        })
+      );
     });
   }
 }
