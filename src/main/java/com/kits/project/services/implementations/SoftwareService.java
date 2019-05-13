@@ -49,7 +49,8 @@ public class SoftwareService {
 		
 		CertificateNode requestedNode = certificateRep.findByAlias(alias);
 		CertificateNode helpNode;		
-		
+		ArrayList<String> updatedSoftwares = new ArrayList<String>();
+		updatedSoftwares.add(alias);
 		if(requestedNode == null) {
 			return "Data invalid";
 		}
@@ -63,6 +64,7 @@ public class SoftwareService {
 				helpNode.getConnectedSoftwares().add(requestedNode);
 				certificateRep.save(helpNode);
 				certificateRep.save(requestedNode);
+				updatedSoftwares.add(helpNode.getAlias());
 			}
 		}
 		
@@ -75,6 +77,7 @@ public class SoftwareService {
 				helpNode.getConnectedSoftwares().remove(requestedNode);
 				certificateRep.save(helpNode);
 				certificateRep.save(requestedNode);
+				updatedSoftwares.add(helpNode.getAlias());
 			}
 		}
 
