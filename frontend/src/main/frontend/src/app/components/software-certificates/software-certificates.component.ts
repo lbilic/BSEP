@@ -47,6 +47,10 @@ export class SoftwareCertificatesComponent implements OnInit{
     this.dialog.open(EditCommunicationComponent, dialogConfig);
   }
 
+  download(alias) {
+    this.certificatesService.downloadCertificate(alias);
+  }
+
   getAllData(): void {
     let responseData = [];
     this.certificatesService.getAllData().subscribe((res : any[]) => {

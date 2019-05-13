@@ -1,32 +1,74 @@
 <h1 mat-dialog-title>Certificate</h1>
 <div mat-dialog-content>
-  <form (submit)='addCertificate()' id="generateCertificate">
+  <form [formGroup]="form" (submit)='addCertificate()' id="generateCertificate" novalidate>
     <div class="form-group">
       <label>Alias:</label>
-      <input type="text" class="form-control" [(ngModel)]="certificate.alias" name="alias" required/>
+      <input type="text" class="form-control" [(ngModel)]="certificate.alias" name="alias" formControlName="alias" required/>
+      <div *ngIf="aliasCtrl.invalid && (aliasCtrl.dirty || aliasCtrl.touched)"
+           class="alert alert-danger">
+        <div *ngIf="aliasCtrl.errors.required">
+          Alias is required.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label>Locality:</label>
-      <input type="text" class="form-control" [(ngModel)]="certificate.locality" name="locality" required/>
+      <input type="text" class="form-control" [(ngModel)]="certificate.locality" name="locality" formControlName="locality" required/>
+      <div *ngIf="localityCtrl.invalid && (localityCtrl.dirty || localityCtrl.touched)"
+        class="alert alert-danger">
+        <div *ngIf="localityCtrl.errors.required">
+          Locality is required.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label>State name:</label>
-      <input type="text" class="form-control" [(ngModel)]="certificate.stateName" name="stateName" required/>
-    </div>
-    <div class="form-group">
-      <label>Country name:</label>
-      <input type="text" class="form-control" [(ngModel)]="certificate.countryName" name="countryName" required/>
-    </div>
-    <div class="form-group">
-        <label>Date issued:</label>
-        <input type="date" class="form-control" [(ngModel)]="certificate.dateIssued" name="dateIssued" required/>
-      </div>
-      <div class="form-group">
-          <label>End date:</label>
-          <input type="date" class="form-control" [(ngModel)]="certificate.endDate" name="endDate" required/>
+      <input type="text" class="form-control" [(ngModel)]="certificate.stateName" name="stateName" formControlName="stateName" required/>
+      <div *ngIf="stateNameCtrl.invalid && (stateNameCtrl.dirty || stateNameCtrl.touched)"
+        class="alert alert-danger">
+        <div *ngIf="stateNameCtrl.errors.required">
+          State name is required.
         </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Country name(two letters):</label>
+      <input type="text" class="form-control" [(ngModel)]="certificate.countryName" name="countryName" min="2" max="2" formControlName="countryName" required/>
+      <div *ngIf="countryNameCtrl.invalid && (countryNameCtrl.dirty || countryNameCtrl.touched)"
+        class="alert alert-danger">
+        <div *ngIf="countryNameCtrl.errors.required">
+          Country name is required.
+        </div>
+        <div *ngIf="countryNameCtrl.errors.minlength">
+            Country name is required.
+          </div>
+          <div *ngIf="countryNameCtrl.errors.maxlength">
+              Country name is required.
+            </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Date issued:</label>
+      <input type="date" class="form-control" [(ngModel)]="certificate.dateIssued" name="dateIssued" formControlName="dateIssued" required/>
+      <div *ngIf="dateIssuedCtrl.invalid && (dateIssuedCtrl.dirty || dateIssuedCtrl.touched)"
+        class="alert alert-danger">
+        <div *ngIf="dateIssuedCtrl.errors.required">
+          Date issued is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>End date:</label>
+      <input type="date" class="form-control" [(ngModel)]="certificate.endDate" name="endDate" formControlName="endDate" required/>
+      <div *ngIf="endDateCtrl.invalid && (endDateCtrl.dirty || endDateCtrl.touched)"
+        class="alert alert-danger">
+        <div *ngIf="endDateCtrl.errors.required">
+          End date is required.
+        </div>
+      </div>
+    </div>
     <!-- <span style="font-weight: bold;">Public key:&nbsp;</span>
     <input type="text" class="certificate-field" [(ngModel)]="certificate.name"> -->
-    <button mat-raised-button color="primary" class="add-cert-button" type="submit">Add certificate</button>
+    <button mat-raised-button color="primary" class="add-cert-button" type="submit" [disabled]="!form.valid">Add certificate</button>
   </form>
 </div>
