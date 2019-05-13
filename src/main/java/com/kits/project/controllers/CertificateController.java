@@ -71,16 +71,19 @@ public class CertificateController {
 	}
     
     @RequestMapping(value = "/download/{alias}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public @ResponseBody void downloadFiles(HttpServletResponse response) throws IOException {
+    public @ResponseBody void downloadFiles(@PathVariable("alias") String alias, HttpServletResponse response) throws IOException {
     	
     	// Pre ovoga treba da generises keyStore i trustStore i upises ih u
     	// storage/keystore.jks i storage/truststore.jks
     	
         FileOutputStream out_file = new FileOutputStream("storage/stores.zip");
         ZipOutputStream out = new ZipOutputStream(out_file);
-        
-        this.writeToZipFile("storage/keystore.jks", out);
-        this.writeToZipFile("storage/truststore.jks", out);
+
+        // Update-uj truststore
+        //certificateService.updateTrustStore(alias);
+
+        this.writeToZipFile(String.format("src/main/resources/certs/%s.jks", alias), out);
+        //this.writeToZipFile("storage/truststore.jks", out);
 
         out.close();
         out_file.close();
@@ -98,7 +101,8 @@ public class CertificateController {
 
         File aFile = new File(path);
         FileInputStream fis = new FileInputStream(aFile);
-        ZipEntry zipEntry = new ZipEntry(path);
+        int size = path.split("/").length;
+        ZipEntry zipEntry = new ZipEntry(path.split("/")[size-1]);
         zipStream.putNextEntry(zipEntry);
 
         byte[] bytes = new byte[1024];

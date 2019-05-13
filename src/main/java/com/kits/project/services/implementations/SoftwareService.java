@@ -15,6 +15,9 @@ public class SoftwareService {
 	@Autowired
 	CertificateNodeRepository certificateRep;
 
+	@Autowired
+	CertificateService certificateService;
+
 	public SoftwareConnections getConnectedSoftwares(String alias){
 		if(alias == null) {
 			return null;
@@ -74,6 +77,8 @@ public class SoftwareService {
 				certificateRep.save(requestedNode);
 			}
 		}
+
+		certificateService.updateTrustStore(alias);
 
 		return "Success";
 	}
