@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,8 @@ import com.kits.project.model.CertificateNode;
 import com.kits.project.model.CertificateStatus;
 import com.kits.project.repositories.CertificateNodeRepository;
 import com.kits.project.repositories.CertificateStatusRepository;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 @Service
 public class CertificateService {
@@ -25,19 +27,22 @@ public class CertificateService {
 	CertificateStatusRepository certificateStatusRep;
 	
 	public String generateCert(String issued_by,CertificateNode certNode) {
+		String regex = "^[a-zA-Z ]+$";
+		Pattern pattern = Pattern.compile(regex);
+		
 		if(certNode.getIsSoftware() == null) {
 			return "Data not valid1";
-		}else if(certNode.getAlias() == null) {
+		}else if(certNode.getAlias() == null || !pattern.matcher(certNode.getAlias()).matches()) {
 			return "Data not valid2";
-		}else if(certNode.getLocality() == null) {
+		}else if(certNode.getLocality() == null || !pattern.matcher(certNode.getLocality()).matches()) {
 			return "Data not valid3";
-		}else if(certNode.getStateName() == null) {
+		}else if(certNode.getStateName() == null || !pattern.matcher(certNode.getStateName()).matches()) {
 			return "Data not valid4";
 		}else if(certNode.getDateIssued() == null) {
 			return "Data not valid5";
 		}else if(certNode.getEndDate() == null) {
 			return "Data not valid6";
-		}else if(certNode.getCountryName() == null) {
+		}else if(certNode.getCountryName() == null || !pattern.matcher(certNode.getCountryName()).matches()) {
 			return "Data not vali7";
 		}
 		
@@ -97,6 +102,10 @@ public class CertificateService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		CertificateStatus status = new CertificateStatus();
+		status.setIsRevoked(false);
+		status.setSerialNumber(certNode.getSerialNumber());
+		certificateStatusRep.save(status);
 		certificateRep.save(certNode);		
 		parentNode.getChildren().add(certNode);
 		certificateRep.save(parentNode);
@@ -163,28 +172,30 @@ public class CertificateService {
 	}
 
 
-	public void updateTrustStore(String alias) {
+	public void updateTrustStoreEach(String alias) {
 		try{
 			String certPath = new File("src/main/resources/certs/a").getAbsolutePath();
 			certPath = certPath.substring(0, certPath.length()-1);
 			CertificateNode cert = certificateRep.findByAlias(alias);
 
+			Path original = FileSystems.getDefault().getPath(certPath + "\\" + alias + "_work.jks");
+			Path target = FileSystems.getDefault().getPath(certPath + "\\" + alias + ".jks");
+			Files.copy(original, target, StandardCopyOption.REPLACE_EXISTING);
+
 			for(CertificateNode c : cert.getConnectedSoftwares()) {
 				// Dodaj svaki u truststore
-				Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && " +
-								"del /f \"%s.jks\" &&" +
-								"copy \"%s_work.jks\" \"%s.jks\" /y &&" +
-								"keytool -importcert -alias \"%s\" -keystore \"%s.jks\" -file \"%sCA.cer\" -storepass password -noprompt && exit\"",
-						certPath, alias, alias, alias,c.getAlias(), alias, c.getAlias()));
-
 				Process p1 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && " +
-								"del /f \"%s.jks\" &&" +
-								"copy \"%s_work.jks\" \"%s.jks\" /y &&" +
 								"keytool -importcert -alias \"%s\" -keystore \"%s.jks\" -file \"%sCA.cer\" -storepass password -noprompt && exit\"",
-						certPath, c.getAlias(), c.getAlias(), c.getAlias(), alias, c.getAlias(), alias));
+						certPath, c.getAlias(), alias, c.getAlias()));
+				p1.waitFor();
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+	}
+
+	public void updateTrustStore(ArrayList<String> updatedSoftwares) {
+		for(String alias : updatedSoftwares)
+			this.updateTrustStoreEach(alias);
 	}
 }

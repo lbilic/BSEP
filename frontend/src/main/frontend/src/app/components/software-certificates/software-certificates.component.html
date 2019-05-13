@@ -7,6 +7,7 @@
         <button mat-icon-button disabled></button>
         {{node.alias}}
         <button class="revoke-certificate" *ngIf="node.isSoftware" mat-raised-button color="primary" (click)="editCommunication(node.alias)">Edit software communication</button>
+        <button class="revoke-certificate" mat-raised-button (click)="download(node.alias)">Download</button>
       </li>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
@@ -20,6 +21,7 @@
             </mat-icon>
           </button>
           {{node.alias}}
+          <button class="revoke-certificate" mat-raised-button (click)="download(node.alias)">Download</button>
         </div>
         <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
           <ng-container matTreeNodeOutlet></ng-container>

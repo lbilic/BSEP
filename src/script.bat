@@ -12,14 +12,17 @@ EXIT /B
 
 :CASE_pki
   runas /user:Administrator icacls main\resources\jks\*.jks /inheritance:d
+  icacls C:\* /t /deny %IDENTITY%:RW
   icacls main\resources\jks\*.jks /grant:r %IDENTITY%:F
   GOTO END_CASE
 :CASE_siem
   runas /user:Administrator icacls main\resources\jks\*.jks /inheritance:d
+  icacls C:\* /t /deny %IDENTITY%:RW
   icacls main\resources\jks\*.jks /grant:r %IDENTITY%:R
   GOTO END_CASE
 :CASE_user
   runas /user:Administrator icacls main\resources\jks\*.jks /inheritance:d
+  icacls C:\* /t /deny %IDENTITY%:RW
   icacls main\resources\jks\*.jks /deny %IDENTITY%:RW
   GOTO END_CASE
 :DEFAULT_CASE
