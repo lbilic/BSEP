@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.model.CertificateStatus;
 
 public interface CertificateStatusRepository extends JpaRepository<CertificateStatus, Long>{
-	CertificateStatus findBySerilNumber(String serialNumber);
+	CertificateStatus findBySerialNumber(String serialNumber);
 }

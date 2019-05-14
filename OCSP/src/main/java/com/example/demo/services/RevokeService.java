@@ -17,7 +17,7 @@ public class RevokeService {
 			return "Data invalid";
 		}
 		
-		CertificateStatus certStatus = certificateStatusRep.findBySerilNumber(serialNumber);
+		CertificateStatus certStatus = certificateStatusRep.findBySerialNumber(serialNumber);
 		
 		if(certStatus == null) {
 			return "Doesn't exist";

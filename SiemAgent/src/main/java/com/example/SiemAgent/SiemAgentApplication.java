@@ -1,6 +1,9 @@
 package com.example.SiemAgent;
 
 import java.io.File;
+import java.math.BigInteger;
+
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,9 +14,11 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @ComponentScan("com.example.components")
 public class SiemAgentApplication {
+	public static BigInteger serialNumber1;
+	
 	static
 	{
-		File ts = new File("../SiemAgent/src/main/resources/jks/SiemAgent.jks");
+		File ts = new File("../SiemAgent/src/main/resources/jks/agent.jks");
 		System.setProperty("javax.net.debug", "all");
 		System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
 		System.setProperty("https.protocols", "TLSv1.2");
@@ -27,9 +32,12 @@ public class SiemAgentApplication {
 
 					public boolean verify(String hostname,
 										  javax.net.ssl.SSLSession sslSession) {
-						System.out.println("\n\n 8888888888888888888888888888 \n\n");
-						System.out.println(sslSession.getLocalCertificates());
-						System.out.println("\n\n 8888888888888888888888888888 \n\n");
+						try {
+							serialNumber1 = sslSession.getPeerCertificateChain()[0].getSerialNumber();
+						} catch (SSLPeerUnverifiedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						if (hostname.equals("localhost")) {
 							return true;
 						}

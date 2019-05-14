@@ -1,13 +1,21 @@
 package com.kits.project.services.implementations;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.nio.file.*;
+import java.util.regex.Pattern;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +23,6 @@ import com.kits.project.model.CertificateNode;
 import com.kits.project.model.CertificateStatus;
 import com.kits.project.repositories.CertificateNodeRepository;
 import com.kits.project.repositories.CertificateStatusRepository;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 @Service
 public class CertificateService {
@@ -73,11 +79,13 @@ public class CertificateService {
 				Process p0 = Runtime.getRuntime().exec(String.format("cmd /c start cmd.exe /K \"cd \"%s\" && keytool -genkey -alias \"%s\" -keyalg RSA -keystore \"%s.jks\" -storetype JKS -dname \"CN=%s.megatravel.com,OU=%s,O=MegaTravel,L=%s,ST=%s,C=%s\" -keypass password -storepass password &&" +
 								"keytool -certreq -alias \"%s\" -keystore \"%s.jks\" -file \"%s.csr\" -storepass password && " +
 								"openssl x509 -CA ..\\CA\\caroot.cer -CAkey ..\\CA\\cakey.pem -CAserial ..\\CA\\serial.txt -req -in \"%s.csr\" -out \"%sCA.cer\" -days %d -passin pass:password && " +
-								"copy \"%s.jks\" \"%s_work.jks\" /y &&" +
+								"copy \"%s.jks\" \"%s_work.jks\" /y && " +
+								"keytool -export -alias \"%s\" -keystore \"%s.jks\" -file mycert.cer -storepass password &&" +
 								"exit\"",
 						certPath, certNode.getAlias(), certNode.getAlias(),certNode.getAlias(),certNode.getAlias(), certNode.getLocality(), certNode.getStateName(), certNode.getCountryName(),
 						certNode.getAlias(), certNode.getAlias(), certNode.getAlias(),
 						certNode.getAlias(), certNode.getAlias(), validity/3600/24,
+						certNode.getAlias(), certNode.getAlias(),
 						certNode.getAlias(), certNode.getAlias()));
 			}catch(Exception ex){
 				ex.printStackTrace();
@@ -97,6 +105,7 @@ public class CertificateService {
 				ex.printStackTrace();
 			}
 		}
+		
 		// Upisivanje u bazu za OCSP sa serijskim brojem i flag-om da li je povucen
 		// dodati serial number i u certNode 
 		try {
@@ -104,10 +113,6 @@ public class CertificateService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		CertificateStatus status = new CertificateStatus();
-		status.setIsRevoked(false);
-		status.setSerialNumber(certNode.getSerialNumber());
-		certificateStatusRep.save(status);
 		certificateRep.save(certNode);		
 		parentNode.getChildren().add(certNode);
 		certificateRep.save(parentNode);
