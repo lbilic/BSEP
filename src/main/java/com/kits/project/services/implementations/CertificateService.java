@@ -28,11 +28,13 @@ public class CertificateService {
 	
 	public String generateCert(String issued_by,CertificateNode certNode) {
 		String regex = "^[a-zA-Z ]+$";
+		String aliasRegex = "^[a-zA-Z0-9 ]+$";
 		Pattern pattern = Pattern.compile(regex);
+		Pattern aliasPattern = Pattern.compile(aliasRegex);
 		
 		if(certNode.getIsSoftware() == null) {
 			return "Data not valid1";
-		}else if(certNode.getAlias() == null || !pattern.matcher(certNode.getAlias()).matches()) {
+		}else if(certNode.getAlias() == null || !aliasPattern.matcher(certNode.getAlias()).matches()) {
 			return "Data not valid2";
 		}else if(certNode.getLocality() == null || !pattern.matcher(certNode.getLocality()).matches()) {
 			return "Data not valid3";
