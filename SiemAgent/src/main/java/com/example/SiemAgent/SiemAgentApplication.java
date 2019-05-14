@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class SiemAgentApplication {
 	static
 	{
-		File ts = new File("../SiemAgent/src/main/resources/jks/Siem agent4.jks");
+		File ts = new File("../SiemAgent/src/main/resources/jks/SiemAgent.jks");
 		System.setProperty("javax.net.debug", "all");
 		System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
 		System.setProperty("https.protocols", "TLSv1.2");
@@ -27,12 +27,16 @@ public class SiemAgentApplication {
 
 					public boolean verify(String hostname,
 										  javax.net.ssl.SSLSession sslSession) {
+						System.out.println("\n\n 8888888888888888888888888888 \n\n");
+						System.out.println(sslSession.getLocalCertificates());
+						System.out.println("\n\n 8888888888888888888888888888 \n\n");
 						if (hostname.equals("localhost")) {
 							return true;
 						}
 						return false;
 					}
 				});
+		
 	}
 
 	@Bean

@@ -6,24 +6,24 @@ INSERT INTO account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) VALUES (54, 789, 1);
 INSERT INTO certificate_status (id, serial_number , is_revoked) values (500, 'someSerialNum', 0);
 
 INSERT INTO certificate_node (id, alias, is_software) values (500, 'ROOT' , 0);
-INSERT INTO certificate_node (id, alias, is_software) values (501, 'Boston' , 0);
-INSERT INTO certificate_node (id, alias, is_software) values (502, 'London' , 0);
-INSERT INTO certificate_node (id, alias, is_software) values (503, 'Hong Kong' , 0);
-INSERT INTO certificate_node (id, alias, is_software) values (504, 'Siem center' , 1);
-INSERT INTO certificate_node (id, alias, is_software) values (505, 'Siem agent1' , 1);
-INSERT INTO certificate_node (id, alias, is_software) values (506, 'Siem agent2' , 1);
+--INSERT INTO certificate_node (id, alias, is_software) values (501, 'Boston' , 0);
+--INSERT INTO certificate_node (id, alias, is_software) values (502, 'London' , 0);
+--INSERT INTO certificate_node (id, alias, is_software) values (503, 'Hong Kong' , 0);
+--INSERT INTO certificate_node (id, alias, is_software) values (504, 'Siem center' , 1);
+--INSERT INTO certificate_node (id, alias, is_software) values (505, 'Siem agent1' , 1);
+--INSERT INTO certificate_node (id, alias, is_software) values (506, 'Siem agent2' , 1);
 
-INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,501);
-INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,502);
-INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,503);
-INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,504);
-INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,505);
-INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,506);
+--INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,501);
+--INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,502);
+--INSERT INTO certificate_node_children (certificate_node_id, children_id) values (500,503);
+--INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,504);
+--INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,505);
+--INSERT INTO certificate_node_children (certificate_node_id, children_id) values (503,506);
 
-INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (504,505);
-INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (505,504);
-INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (505,506);
-INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (506,505);
+--INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (504,505);
+--INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (505,504);
+--INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (505,506);
+--INSERT INTO certificate_node_connected_softwares (certificate_node_id, connected_softwares_id) values (506,505);
 
 
 INSERT INTO permission (id,name) values (500,'generateCertificate');

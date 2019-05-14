@@ -34,6 +34,7 @@ public class SystemUserController {
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addUser(@RequestBody SystemUser user) {
+		System.out.println(user.getUsername());
     	return new ResponseEntity<String>(userService.addUser(user),HttpStatus.OK);
     }
 
